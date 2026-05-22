@@ -16,7 +16,7 @@ timezone: America/Los_Angeles
 
 title: Yangyi Liu # the main title
 
-tagline: I like AI, Art and crow. # it will display as the subtitle
+tagline: I like AI, Art and crows. # it will display as the subtitle
 
 description: >- # used by seo meta and the atom feed
   UC San Diego 26'
@@ -96,7 +96,7 @@ theme_mode: # [light | dark]
 cdn:
 
 # the avatar on sidebar, support local or CORS resources
-avatar:
+avatar: /assets/img/avatar.jpg"
 
 # The URL of the site-wide social preview image used in SEO `og:image` meta tag.
 # It can be overridden by a customized `page.image` in front matter.

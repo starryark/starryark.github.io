@@ -222,3 +222,17 @@ jekyll-archives:
   permalinks:
     tag: /tags/:name/
     category: /categories/:name/
+
+plugins:
+  - jekyll-feed
+  - jekyll-compose
+
+jekyll_compose:
+  auto_open: true
+  default_front_matter:
+    posts:
+      categories: []
+      tags: []
+    drafts:
+      categories: []
+      tags: []

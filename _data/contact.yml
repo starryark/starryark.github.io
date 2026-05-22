@@ -3,16 +3,17 @@
 - type: github
   icon: "fab fa-github"
 
-- type: twitter
-  icon: "fa-brands fa-x-twitter"
+- type: linkedin
+  icon: "fab fa-linkedin"
+  url: "https://www.linkedin.com/in/yangyi-liu-a78211281"
 
 - type: email
   icon: "fas fa-envelope"
   noblank: true # open link in current tab
 
-- type: rss
-  icon: "fas fa-rss"
-  noblank: true
+- type: Pixiv
+  icon: "fa-brands fa-pixiv fa-fw"
+  url: "https://www.pixiv.net/users/41472729"
 # Uncomment and complete the url below to enable more contact options
 #
 # - type: mastodon

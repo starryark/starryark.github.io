@@ -145,7 +145,15 @@ pwa:
     deny_paths:
       # - "/example"  # URLs match `<SITE_URL>/example/*` will not be cached by the PWA
 
-paginate: 10
+pagination:
+  enabled: true
+  per_page: 10
+  permalink: "/page/:num/"
+  sort_field: "date"
+  sort_reverse: true
+  trail:
+    before: 2
+    after: 2
 
 # The base URL of your site
 baseurl: ""
@@ -224,8 +232,8 @@ jekyll-archives:
     category: /categories/:name/
 
 plugins:
-  - jekyll-feed
   - jekyll-compose
+  - jekyll-paginate-v2
 
 jekyll_compose:
   auto_open: true

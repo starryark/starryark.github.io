@@ -164,8 +164,23 @@ html[data-mode="light"] .timeline-emblem {
     filter: none;
 }
 </style>
-
+s
 <ul class="timeline-wrapper">
+    <li style="--accent: var(--accent-1);">
+        <div class="timeline-entry">
+            <div class="timeline-text">
+                <div class="time-label">2026 - Current</div>
+                <div class="timeline-title">AmadeusBio.ai</div>
+                <p class="timeline-content">Developing agentic system for bioinformatic analysis.</p>
+            </div>
+            <a class="timeline-emblem img-link"
+               href="https://www.amadeusbio.ai"
+               target="_blank"
+               rel="noopener"
+               aria-label="AmadeusBio.ai (opens in new tab)"
+               style="background-image: url('{{ '/assets/img/AmadeusBio_Logo_UpperRight.svg' | relative_url }}'); background-size: 80%; filter: none;"></a>
+        </div>
+    </li>
     <li style="--accent: var(--accent-1);">
         <div class="timeline-entry">
             <div class="timeline-text">

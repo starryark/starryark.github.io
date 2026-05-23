@@ -2,6 +2,7 @@
 # the default layout is 'page'
 icon: fas fa-info-circle
 order: 5
+toc: true
 ---
 
 > *This is Yangyi Liu’s personal website, which I (Yangyi) will decorate with things I think are worthy of putting up on my personal site.*
@@ -16,7 +17,7 @@ Instead, I wish to explore something truly innovative that adds value in perhaps
 
 ---
 
-### Art:
+### Art
 
 I like art, especially the more illustrative side of anime. I sometimes have the self-image that I draw pretty well, and other times the complete opposite. I recently played *Steins;Gate*, and playing the game gives me flashbacks every little cues mentioned in the game. 
 
@@ -26,7 +27,7 @@ Perhaps that's how Athenians felt about Sophocles.
 
 ---
 
-### Artificial Intelligence:
+### Artificial Intelligence
 
 I also like AI. I believe technology will transform humanity, starting with the younger generation. I'm speaking from my peronal experience seeing technology impacting my schooling. 
 
@@ -42,6 +43,6 @@ Now with almost all knowlege floating arround on the internet, and LLMs that gre
 
 ---
 
-### Crows:
+### Crows
 
 I also like feeding crows on campus. Looking at them (also feeding) helps me shift my mind away from the anthropocentric narratives that have filled my life.

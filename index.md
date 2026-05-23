@@ -171,7 +171,7 @@ html[data-mode="light"] .timeline-emblem {
             <div class="timeline-text">
                 <div class="time-label">2023 - 2025</div>
                 <div class="timeline-title">B.S. Molecular and Cell Biology</div>
-                <p class="timeline-content">University of California, San Diego. Cum Laude Honor</p>
+                <p class="timeline-content">University of California, San Diego. Cum Laude</p>
             </div>
             <a class="timeline-emblem img-link"
                href="https://ucsd.edu"
@@ -191,4 +191,4 @@ Coding
 
 ---
 
-Browse my [**posts**](/posts/) or learn more [**about me**](/about/).
+Browse my [posts](/posts/) or learn more [about me](/about/).

@@ -3,7 +3,7 @@ layout: page
 title: In here we met, Nice to Meet You!
 ---
 
-> *Internet is big, thank you for visiting here.*
+> *Internet is huge, thank you for visiting here.*
 
 ---
 

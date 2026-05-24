@@ -23,7 +23,7 @@ description: >- # used by seo meta and the atom feed
 
 # Fill in the protocol & hostname for your site.
 # E.g. 'https://username.github.io', note that it does not end with a '/'.
-url: "https://starryark.github.io/"
+url: "https://starryark.github.io"
 
 github:
   username: starryark # change to your GitHub username
@@ -239,8 +239,10 @@ jekyll_compose:
   auto_open: true
   default_front_matter:
     posts:
+      description:
       categories: []
       tags: []
     drafts:
+      description:
       categories: []
       tags: []

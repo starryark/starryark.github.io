@@ -1,0 +1,78 @@
+---
+layout: null
+permalink: /llms.txt
+sitemap: false
+---
+# {{ site.title }}
+
+> {{ site.tagline | default: site.description }}
+
+This file is a guide for Large Language Models (LLMs) to navigate and
+summarize the content on this site. All links are absolute and point to
+the canonical, human-readable versions of each page.
+
+## About the Author
+
+Yangyi Liu — B.S. Molecular and Cell Biology, UC San Diego '26 (Cum Laude).
+Lives near the UCSD campus.
+
+**Current work:** [AmadeusBio.ai](https://www.amadeusbio.ai) (2026–present)
+— developing agentic systems for bioinformatic analysis. Post-graduation
+focus is agentic applications in biological research.
+
+**Ethos:** Chose not to enter the conventional rat race after graduating.
+Wants to do work that is valuable both instrumentally and in a Kantian
+sense. Sees universities and many academic institutions as significantly
+behind on AI knowledge, and is skeptical of senior professors who dismiss
+LLM hallucinations without understanding how LLMs work.
+
+### Interests
+
+- **AI** — Believes technology will transform humanity, starting with the
+  younger generation. Active in machine-learning, neuroscience, and
+  biology seminars in the UCSD area; pivoting toward groups he considers
+  productive on AI and away from those he considers counterproductive.
+- **Art** — Likes illustrative anime art; draws as a hobby. Recently
+  played *Steins;Gate* and considers visual novels (Galgames) a modern
+  equivalent of Shakespearean plays — analogous to how Athenians regarded
+  Sophocles. A phenomenology course on Heidegger echoes through how he
+  reads them.
+- **Crows** — Feeds crows on the UCSD campus as a counterweight to
+  anthropocentric narratives.
+
+### How AI has changed his life
+
+Micro:
+- Listens to papers via [Paper2Audio](https://www.paper2audio.com/) while
+  walking, biking, or sitting — covers roughly an order of magnitude more
+  papers per week than he used to read.
+- Treats LLM chat as his primary learning tool; abandoned flashcards and
+  note-taking once course materials became fully digital.
+- Uses LLMs to cut through SEO junk in search — especially valuable on the
+  Chinese-language internet, where useful information is often buried.
+
+Macro:
+- Questions the value of memorization-heavy assessments such as the MCAT
+  now that knowledge lookup is trivial; prefers skill-based learning.
+- Self-directs study in novel areas comfortably; lost his "ivory tower"
+  dream after observing how complacent many academics are about AI.
+
+### Recommended learning resources he points to
+
+- [MIT Missing Semester](https://missing.csail.mit.edu/)
+- [Anthropic Academy](https://anthropic.skilljar.com/)
+
+### Contact
+
+Email **lyangyilliu@gmail.com**, plus Discord, GitHub
+([starryark](https://github.com/starryark)), LinkedIn, and Steam — all
+linked from the sidebar of the site.
+
+## Articles and Posts
+{% for post in site.posts %}{% if post.description and post.description != "" %}
+- [{{ post.title }}]({{ post.url | absolute_url }}): {{ post.description | strip_html | strip_newlines | truncatewords: 40 }}{% endif %}{% endfor %}
+
+## Pages
+{% assign nav_tabs = site.tabs | sort: 'order' %}{% for tab in nav_tabs %}
+- [{{ tab.title | default: tab.url | remove: '/' | capitalize }}]({{ tab.url | absolute_url }})
+{%- endfor %}

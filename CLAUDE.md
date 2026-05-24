@@ -24,7 +24,8 @@ There is no single-test runner; `htmlproofer` in `tools/test.sh` validates the w
 
 ## Conventions
 
-- **New posts:** add to `_posts/` as `YYYY-MM-DD-title.md`. Front matter needs at least `title`, `date`, `categories`, `tags`; `layout: post` and `comments`/`toc` are applied automatically via `defaults` in `_config.yml`. Post permalinks are fixed at `/posts/:title/` — do not change this without updating every internal link.
+- **New posts:** add to `_posts/` as `YYYY-MM-DD-title.md`. Front matter needs at least `title`, `date`, `categories`, `tags`; `layout: post` and `comments`/`toc` are applied automatically via `defaults` in `_config.yml`. Post permalinks are fixed at `/posts/:title/` — do not change this without updating every internal link. Always set a `description:` field (1–2 sentences, ~30 words); `llms.txt` skips posts that lack one.
+- **`llms.txt` author summary:** The `## About the Author` block in `llms.txt` is hand-curated. Re-sync it whenever the prose in `index.md` or `_tabs/about.md` changes substantively (new role, updated timeline, new interest section, etc.).
 - **`_drafts/`** posts have comments disabled by default.
 - **Navigation tabs** live in `_tabs/` as a Jekyll collection (`layout: page`, sorted by an `order` front-matter field).
 - **Site-wide settings** go in `_config.yml`; social/contact data in `_data/contact.yml` and `_data/share.yml`.

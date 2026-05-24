@@ -227,8 +227,8 @@ Micro:
 
 Macro:
 
-1. LLMs forced me to seriosuly question the value of memorization, when looking up knowlege become extremely accessible. Thus I want to pivot towards learning skills over memorizing knowlege, which makes assessment like MCAT seems even more absurd for me.
-2. Now I feel more comfortable navigating novel areas of knowledge on my own, without systematic or institutional training (often times there are none because of novelty). I truly felt universities lags significantly behind in knowlege about AI, yet many professors seems complacent about their ignorance. This probably exacerbated my authority issues as I found my ivory tower dream delusional.
+1. LLMs forced me to seriosuly question the value of memorization, when looking up knowlege become extremely accessible. Thus I want to pivot towards learning skills over recalls, which makes assessments including MCAT seems even more absurd for me.
+2. I feel more comfortable navigating novel areas of knowledge on my own, without systematic or institutional training (often times there are none because of novelty). I truly felt universities lags significantly behind in knowlege about AI, yet many professors I saw seems complacent about their ignorance. This probably exacerbated my authority issues and I found my previous ivory tower dream delusional.
 
 ---
 Browse my [posts](/posts/) or learn more [about me](/about/).

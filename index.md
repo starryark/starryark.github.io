@@ -164,7 +164,6 @@ html[data-mode="light"] .timeline-emblem {
     filter: none;
 }
 </style>
-s
 <ul class="timeline-wrapper">
     <li style="--accent: var(--accent-1);">
         <div class="timeline-entry">
@@ -200,10 +199,36 @@ s
 
 ---
 
-### What I am up to
+### What I am up to:
 
-Coding
+After graduation, I had been exploring around with programming, and I am especially interested in agentic application in biological research setting. 
+
+I had a lot of fun learning and playing around with coding, and two free resources I found especially useful are: [MIT Missing Semester](https://missing.csail.mit.edu/) and [Anthropic Academy](https://anthropic.skilljar.com/).
+
+I am also attending lots of neuroscience, machine learning and biology seminars on and near UC San Diego, I learnt a lot from the talks given by various people.
 
 ---
 
+### How to contact me:
+
+I live near UC San Diego campus, and you can message me through email, discord or even Steam chat that is on the bottom-left corner of this website. 
+
+---
+
+### Has AI changed my life:
+
+Yeah, I will say definitely. AI changed many micro and macro aspects of my life.
+
+Micro:
+
+1. As opposed to "reading" papers, now I listen to paper narrated by AI walking, biking, sitting etc. using [Paper2Audio](https://www.paper2audio.com/). And I found myself able to go through a magnitude more paper in a week.
+2. I found chatting with LLMs a more efficient learning method than what I was used to (flashcards, review videos, doing homework etc.). And I gave up taking notes completely since I found reviewing notes really inefficient when almost all course materials are digitized.
+3. AI made my internet search much more enjoyable. Previously I often spend hours scrolling through search engine optimized junks even for a single piece of information. This is especially horrible with Chinese internet, and LLMs allows me to learn much more knowledge that would otherwise been buried under trash.
+
+Macro:
+
+1. LLMs forced me to seriosuly question the value of memorization, when looking up knowlege become extremely accessible. Thus I want to pivot towards learning skills over memorizing knowlege, which makes assessment like MCAT seems even more absurd for me.
+2. Now I feel more comfortable navigating novel areas of knowledge on my own, without systematic or institutional training (often times there are none because of novelty). I truly felt universities lags significantly behind in knowlege about AI, yet many professors seems complacent about their ignorance. This probably exacerbated my authority issues as I found my ivory tower dream delusional.
+
+---
 Browse my [posts](/posts/) or learn more [about me](/about/).

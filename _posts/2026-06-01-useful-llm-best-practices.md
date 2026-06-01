@@ -71,6 +71,8 @@ In Long context, models attend best to the beginning and end of a prompt, but de
 * **Long Text Placement:** Put long documents and data near the top of the prompt, above your query and instructions. 
 * **Quote-grounding:** For needle-in-a-haystack tasks, tell the model to *"quote the relevant parts of the documents first, then answer."*
 
+*Note: Both the user prompt + the model previous output count as context, the model sees the context in format generally something like: "<user_message>:..., <assistant_response>:..." etc.* 
+
 ### [Language Models are Few-Shot Learners](https://doi.org/10.48550/arXiv.2005.14165)
 
 Providing examples is one of the single most reliable ways to steer format, tone, and structure.

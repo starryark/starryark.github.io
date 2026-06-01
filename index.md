@@ -164,6 +164,7 @@ html[data-mode="light"] .timeline-emblem {
     filter: none;
 }
 </style>
+
 <ul class="timeline-wrapper">
     <li style="--accent: var(--accent-1);">
         <div class="timeline-entry">
@@ -219,13 +220,13 @@ I live near UC San Diego campus, and you can message me through email, discord o
 
 Yeah, I will say definitely. AI changed many micro and macro aspects of my life.
 
-Micro:
+#### Micro:
 
 1. As opposed to "reading" papers, now I listen to paper narrated by AI walking, biking, sitting etc. using [Paper2Audio](https://www.paper2audio.com/). And I found myself able to go through a magnitude more paper in a week.
 2. I found chatting with LLMs a more efficient learning method than what I was used to (flashcards, review videos, doing homework etc.). And I gave up taking notes completely since I found reviewing notes really inefficient when almost all course materials are digitized.
 3. AI made my internet search much more enjoyable. Previously I often spend hours scrolling through search engine optimized junks even for a single piece of information. This is especially horrible with Chinese internet, and LLMs allows me to learn much more knowledge that would otherwise been buried under trash.
 
-Macro:
+#### Macro:
 
 1. LLMs forced me to seriosuly question the value of memorization, when looking up knowlege become extremely accessible. Thus I want to pivot towards learning skills over recalls, which makes assessments including MCAT seems even more absurd for me.
 2. I feel more comfortable navigating novel areas of knowledge on my own, without systematic or institutional training (often times there are none because of novelty). I truly felt universities lags significantly behind in knowlege about AI, yet many professors I saw seems complacent about their ignorance. This probably exacerbated my authority issues and I found my previous ivory tower dream delusional.

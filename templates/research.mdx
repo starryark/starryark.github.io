@@ -1,0 +1,65 @@
+---
+title: "Your research title"
+description: "The question, the approach, and the most important finding."
+date: 2026-09-05
+kind: Research
+status: Research note
+tags: []
+draft: true
+math: true
+authors:
+  - name: Yangyi Liu
+# Add an affiliation and ORCID only when applicable:
+#   affiliation: Your institution
+#   orcid: https://orcid.org/0000-0000-0000-0000
+abstract: "A self-contained summary of the research question, methods, findings, and limitations."
+version: "1.0"
+# Optional real publication metadata:
+# venue: Journal or conference name
+# doi: 10.xxxx/your-paper
+# arxiv: YYMM.NNNNN
+# pdf: https://your-domain.org/papers/your-paper.pdf
+# artifacts:
+#   - label: Code
+#     url: https://github.com/your-account/your-project
+# license: https://creativecommons.org/licenses/by/4.0/
+---
+
+import Figure from '../../components/Figure.astro';
+
+## 1. Introduction
+
+State the question and why it matters. Reference earlier work with citations such as [@liu2023lost]. Replace the example reference with sources relevant to your work.
+
+## 2. Methods
+
+Inline mathematics works as $y = f(x)$. Display equations work too:
+
+$$
+\mathcal{L}(\theta) = \frac{1}{n} \sum_{i=1}^{n} (y_i - f_\theta(x_i))^2.
+$$
+
+## 3. Results
+
+Place exported figures in `public/figures/`. Use the figure component with a descriptive caption, alt text, intrinsic dimensions, and a stable ID. Import scientific results from your analysis repository; keep large datasets and experimental environments there.
+
+{/* Replace this example with an actual figure before publishing.
+<Figure
+  id="fig-overview"
+  number={1}
+  src="/figures/your-overview.svg"
+  alt="Describe what the figure shows, including the main comparison."
+  caption="Describe the result and enough context to interpret it."
+  width={1200}
+  height={700}
+/>
+Link back to it with [Figure 1](#fig-overview).
+*/}
+
+## 4. Limitations
+
+Describe what the evidence supports, where it falls short, and what to test next.
+
+## References
+
+{/* The cited bibliography is inserted below automatically. */}

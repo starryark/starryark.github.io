@@ -1,0 +1,118 @@
+---
+import Base from '../../layouts/Base.astro';
+import Icon from '../../components/Icon.astro';
+import { publishedPosts, postUrl, shortDate, readingTime, plainText } from '../../lib/content';
+const posts = await publishedPosts();
+const kinds = [...new Set(posts.map((post) => post.data.kind))];
+---
+
+<Base
+  title="Writing"
+  description="Essays, practical notes, and research on AI and biology by Yangyi Liu."
+>
+  <div class="wrap writing-page">
+    <header class="page-heading">
+      <p class="eyebrow">THE NOTEBOOK</p><h1>Writing<span class="accent-period">.</span></h1><p>
+        Things I’m learning, questions I’m following,<br />and ideas worth keeping.
+      </p>
+    </header>
+    <div class="writing-tools" hidden data-enhanced>
+      <div class="filter-tabs" role="group" aria-label="Filter by type">
+        <button aria-pressed="true" data-filter="All"
+          >All writing <span>{posts.length}</span></button
+        >{
+          kinds.map((kind) => (
+            <button aria-pressed="false" data-filter={kind}>
+              {kind}
+            </button>
+          ))
+        }
+      </div><label class="writing-search"
+        ><Icon name="search" size={18} /><span class="sr-only">Search writing</span><input
+          type="search"
+          id="writing-query"
+          placeholder="Search the notebook"
+          autocomplete="off"
+        /></label>
+    </div>
+    <div class="archive-label"><span>DATE</span><span>TITLE & NOTES</span><span>TYPE</span></div>
+    <div id="writing-list">
+      {
+        posts.map((post) => (
+          <article
+            class="writing-row"
+            data-kind={post.data.kind}
+            data-search={`${post.data.title} ${post.data.description} ${post.data.tags.join(' ')} ${plainText(post.body)}`.toLowerCase()}
+          >
+            <>
+              <time datetime={post.data.date.toISOString()}>{shortDate(post.data.date)}</time>
+              <div>
+                <>
+                  <a href={postUrl(post)}>
+                    <h2>
+                      {post.data.title}
+                      <Icon name="arrow" />
+                    </h2>
+                  </a>
+                  <p>{post.data.description}</p>
+                  <span class="reading-time">{readingTime(post.body)} min read</span>
+                </>
+              </div>
+              <span class="post-kind">{post.data.kind}</span>
+            </>
+          </article>
+        ))
+      }
+    </div>
+    <p class="empty-state" id="writing-empty" hidden>
+      No writing matches that search. Try another word or select “All writing”.
+    </p>
+    <div class="archive-end">
+      <p id="writing-count" aria-live="polite">
+        {posts.length}
+        {posts.length === 1 ? 'article' : 'articles'} · More to come.
+      </p><a class="text-link small-link" href="/feed.xml"
+        >Follow via RSS <Icon name="rss" size={17} /></a>
+    </div>
+  </div>
+  <script>
+    const controls = document.querySelector<HTMLElement>('[data-enhanced]');
+    if (controls) controls.hidden = false;
+    const input = document.querySelector<HTMLInputElement>('#writing-query')!;
+    const buttons = [...document.querySelectorAll<HTMLButtonElement>('[data-filter]')];
+    const rows = [...document.querySelectorAll<HTMLElement>('.writing-row')];
+    const params = new URLSearchParams(location.search);
+    let kind = buttons.some((b) => b.dataset.filter === params.get('topic'))
+      ? params.get('topic')!
+      : 'All';
+    input.value = params.get('q') || '';
+    function filter() {
+      const words = input.value.trim().toLowerCase().split(/\s+/).filter(Boolean);
+      let count = 0;
+      rows.forEach((row) => {
+        row.hidden =
+          (kind !== 'All' && row.dataset.kind !== kind) ||
+          !words.every((word) => row.dataset.search?.includes(word));
+        if (!row.hidden) count++;
+      });
+      buttons.forEach((button) =>
+        button.setAttribute('aria-pressed', String(button.dataset.filter === kind)),
+      );
+      document.querySelector<HTMLElement>('#writing-empty')!.hidden = count !== 0;
+      document.querySelector('#writing-count')!.textContent =
+        `${count} ${count === 1 ? 'article' : 'articles'}${input.value || kind !== 'All' ? ' found.' : ' · More to come.'}`;
+      const next = new URLSearchParams();
+      if (input.value) next.set('q', input.value);
+      if (kind !== 'All') next.set('topic', kind);
+      history.replaceState(null, '', location.pathname + (next.size ? '?' + next.toString() : ''));
+    }
+    input.addEventListener('input', filter);
+    buttons.forEach((button) =>
+      button.addEventListener('click', () => {
+        kind = button.dataset.filter!;
+        filter();
+      }),
+    );
+    filter();
+  </script>
+</Base>

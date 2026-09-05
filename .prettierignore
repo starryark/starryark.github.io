@@ -1,0 +1,12 @@
+node_modules
+dist
+.astro
+.research
+public/math
+public/assets
+drafts/legacy
+src/content
+templates
+playwright-report
+test-results
+package-lock.json

@@ -1,0 +1,113 @@
+---
+import Base from '../layouts/Base.astro';
+import Icon from '../components/Icon.astro';
+---
+
+<Base title="Search" description="Search Yangyi Liu’s writing and website." noindex>
+  <div class="wrap search-page">
+    <header class="page-heading">
+      <p class="eyebrow">FOLLOW A THREAD</p><h1>Search<span class="accent-period">.</span></h1><p>
+        A word, an idea, or something you remember reading.
+      </p>
+    </header>
+    <form class="site-search-form" action="/search/" role="search">
+      <Icon name="search" size={24} /><label for="site-query" class="sr-only">Search the site</label
+      ><input
+        id="site-query"
+        type="search"
+        name="q"
+        placeholder="Search writing, ideas, and more…"
+        autocomplete="off"
+      /><button type="submit">Search</button>
+    </form>
+    <p class="search-status" id="search-status" role="status">
+      Type a few words to search the notebook.
+    </p><div id="search-results"></div>
+    <noscript
+      ><p>
+        Search needs JavaScript. You can <a class="text-link" href="/writing/">browse all writing</a
+        > or visit the <a class="text-link" href="/about/">about page</a>.
+      </p></noscript
+    >
+  </div>
+  <script>
+    type Entry = { title: string; description: string; body: string; url: string; kind: string };
+    const input = document.querySelector<HTMLInputElement>('#site-query')!;
+    const form = document.querySelector<HTMLFormElement>('.site-search-form')!;
+    const results = document.querySelector('#search-results')!;
+    const status = document.querySelector('#search-status')!;
+    let entries: Entry[] | undefined;
+    let request: Promise<Entry[]> | undefined;
+    let sequence = 0;
+    async function search() {
+      const current = ++sequence;
+      const query = input.value.trim();
+      history.replaceState(null, '', '/search/' + (query ? '?q=' + encodeURIComponent(query) : ''));
+      results.replaceChildren();
+      if (!query) {
+        status.textContent = 'Type a few words to search the notebook.';
+        return;
+      }
+      status.textContent = 'Searching…';
+      try {
+        request ||= fetch('/search.json')
+          .then((response) => {
+            if (!response.ok) throw new Error('Search unavailable');
+            return response.json();
+          })
+          .catch((error) => {
+            request = undefined;
+            throw error;
+          });
+        entries ||= await request;
+        if (current !== sequence) return;
+        const words = query.toLowerCase().split(/\s+/);
+        const matches = entries!
+          .filter((entry) =>
+            words.every((word) =>
+              `${entry.title} ${entry.description} ${entry.body}`.toLowerCase().includes(word),
+            ),
+          )
+          .sort(
+            (a, b) =>
+              Number(b.title.toLowerCase().includes(query.toLowerCase())) -
+              Number(a.title.toLowerCase().includes(query.toLowerCase())),
+          );
+        status.textContent = matches.length
+          ? `${matches.length} ${matches.length === 1 ? 'result' : 'results'} for “${query}”.`
+          : `No results for “${query}”. Try “AI”, “biology”, or “crows”.`;
+        for (const match of matches) {
+          const article = document.createElement('article');
+          article.className = 'search-result';
+          const kind = document.createElement('p');
+          kind.className = 'eyebrow';
+          kind.textContent = match.kind;
+          const heading = document.createElement('h2');
+          const link = document.createElement('a');
+          link.href = match.url;
+          link.textContent = match.title + ' →';
+          heading.append(link);
+          const description = document.createElement('p');
+          description.textContent = match.description;
+          article.append(kind, heading, description);
+          results.append(article);
+        }
+      } catch {
+        if (current === sequence)
+          status.textContent =
+            'Search could not load. Please try again, or browse Writing from the navigation.';
+      }
+    }
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      void search();
+    });
+    let timer: ReturnType<typeof setTimeout>;
+    input.addEventListener('input', () => {
+      clearTimeout(timer);
+      timer = setTimeout(search, 120);
+    });
+    input.value = new URLSearchParams(location.search).get('q') || '';
+    if (input.value) void search();
+  </script>
+</Base>

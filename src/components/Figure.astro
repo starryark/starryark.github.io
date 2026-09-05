@@ -1,0 +1,24 @@
+---
+interface Props {
+  id: string;
+  src: string;
+  alt: string;
+  caption: string;
+  number: number;
+  width: number;
+  height: number;
+}
+const { id, src, alt, caption, number, width, height } = Astro.props;
+if (!alt.trim()) throw new Error(`Figure ${id} requires descriptive alt text`);
+---
+
+<figure id={id}>
+  <img
+    src={src}
+    alt={alt}
+    width={width}
+    height={height}
+    loading="lazy"
+    decoding="async"
+  /><figcaption><strong>Figure {number}.</strong> {caption}</figcaption>
+</figure>

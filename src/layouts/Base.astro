@@ -1,0 +1,206 @@
+---
+import '@fontsource-variable/newsreader';
+import '@fontsource-variable/newsreader/wght-italic.css';
+import '@fontsource-variable/dm-sans';
+import '../styles/global.css';
+import Icon from '../components/Icon.astro';
+import { site } from '../site';
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  article?: boolean;
+  noindex?: boolean;
+}
+const {
+  title = site.title,
+  description = site.description,
+  image = '/social-card.png',
+  article = false,
+  noindex = false,
+} = Astro.props;
+const pathname = Astro.url.pathname;
+const canonical = new URL(pathname, site.url).href;
+const nav = [
+  { label: 'Home', href: '/' },
+  { label: 'Writing', href: '/writing/' },
+  { label: 'About', href: '/about/' },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title === site.title ? title : `${title} — ${site.name}`}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex, follow" />}
+    <meta property="og:type" content={article ? 'article' : 'website'} />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={new URL(image, site.url).href} />
+    <meta
+      property="og:image:alt"
+      content="Yangyi Liu — Biology, intelligence, and a little curiosity."
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="theme-color" content="#f5f3eb" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link
+      rel="alternate"
+      type="application/rss+xml"
+      title={`${site.name} — Writing`}
+      href="/feed.xml"
+    />
+    <script is:inline>
+      try {
+        const preference = localStorage.getItem('fieldnotes-theme');
+        const theme =
+          preference || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+        document.documentElement.dataset.theme = theme;
+      } catch {
+        document.documentElement.dataset.theme = matchMedia('(prefers-color-scheme: dark)').matches
+          ? 'dark'
+          : 'light';
+      }
+    </script>
+    <slot name="head" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header wrap">
+      <a class="wordmark" href="/" aria-label="Yangyi Liu, home"
+        ><span class="asterisk" aria-hidden="true">✳</span> Yangyi Liu<span class="wordmark-dot"
+          >.</span
+        ></a
+      >
+      <nav aria-label="Main navigation" class="desktop-nav">
+        {
+          nav.map(({ label, href }) => (
+            <a
+              href={href}
+              aria-current={
+                pathname === href || (href === '/writing/' && pathname.startsWith('/posts/'))
+                  ? 'page'
+                  : undefined
+              }
+            >
+              {label}
+            </a>
+          ))
+        }
+      </nav>
+      <div class="header-actions">
+        <a class="icon-button" href="/search/" aria-label="Search the site" title="Search (Ctrl K)"
+          ><Icon name="search" /></a
+        >
+        <button
+          class="icon-button theme-toggle"
+          aria-label="Switch color theme"
+          title="Switch color theme"
+          hidden
+          ><span class="sun-icon"><Icon name="sun" /></span><span class="moon-icon"
+            ><Icon name="moon" /></span
+          ></button
+        >
+        <a class="header-contact" href={`mailto:${site.email}`}
+          >Say hello <Icon name="external" size={17} /></a
+        >
+      </div>
+    </header>
+    <main id="main" tabindex="-1"><slot /></main>
+    <footer class="site-footer">
+      <div class="wrap footer-top">
+        <div>
+          <p class="eyebrow">THE CONVERSATION CONTINUES</p><h2>
+            Always happy to<br /><em>compare notes.</em>
+          </h2><a class="footer-email" href={`mailto:${site.email}`}
+            >{site.email}<Icon name="external" /></a>
+        </div>
+        <div class="footer-links">
+          <p class="eyebrow">ELSEWHERE</p>{
+            site.links.map(({ label, href }) => (
+              <a href={href} rel="me">
+                {label}
+                <Icon name="external" size={16} />
+              </a>
+            ))
+          }
+        </div>
+        <div class="footer-note">
+          <span class="asterisk" aria-hidden="true">✳</span><p>
+            Biology, intelligence,<br />and a little curiosity.
+          </p><a href="/feed.xml">Follow via RSS <Icon name="rss" size={15} /></a>
+        </div>
+      </div>
+      <div class="wrap footer-bottom">
+        <span>© {new Date().getFullYear()} {site.name}</span><span>{site.location}</span><a
+          href="#main">Back to top ↑</a>
+      </div>
+    </footer>
+    <script>
+      const toggle = document.querySelector<HTMLButtonElement>('.theme-toggle');
+      function themeLabel() {
+        const dark = document.documentElement.dataset.theme === 'dark';
+        toggle?.setAttribute('aria-label', `Switch to ${dark ? 'light' : 'dark'} theme`);
+        toggle?.setAttribute('title', `Switch to ${dark ? 'light' : 'dark'} theme`);
+      }
+      if (toggle) {
+        toggle.hidden = false;
+        themeLabel();
+        toggle.addEventListener('click', () => {
+          const theme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+          document.documentElement.dataset.theme = theme;
+          try {
+            localStorage.setItem('fieldnotes-theme', theme);
+          } catch {}
+          themeLabel();
+        });
+      }
+      matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (event) => {
+        try {
+          if (localStorage.getItem('fieldnotes-theme')) return;
+        } catch {}
+        document.documentElement.dataset.theme = event.matches ? 'dark' : 'light';
+        themeLabel();
+      });
+      document.addEventListener('keydown', (event) => {
+        if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+          event.preventDefault();
+          window.location.href = '/search/';
+        }
+      });
+      // Remove only the previous site's root-scoped offline worker and Chirpy caches.
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker
+          .getRegistrations()
+          .then(async (registrations) => {
+            for (const registration of registrations) {
+              const script =
+                registration.active?.scriptURL ||
+                registration.waiting?.scriptURL ||
+                registration.installing?.scriptURL;
+              if (
+                script &&
+                ['/sw.js', '/sw.min.js'].includes(new URL(script).pathname) &&
+                new URL(registration.scope).pathname === '/'
+              )
+                await registration.unregister();
+            }
+            if ('caches' in window)
+              await Promise.all(
+                (await caches.keys())
+                  .filter((name) => name.startsWith('chirpy-'))
+                  .map((name) => caches.delete(name)),
+              );
+          })
+          .catch(() => {});
+      }
+    </script>
+  </body>
+</html>

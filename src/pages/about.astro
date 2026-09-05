@@ -1,0 +1,37 @@
+---
+import { getEntry, render } from 'astro:content';
+import Base from '../layouts/Base.astro';
+import { site } from '../site';
+const page = await getEntry('pages', 'about');
+if (!page) throw new Error('About page content is missing');
+const { Content } = await render(page);
+---
+
+<Base title="About" description={page.data.description}>
+  <div class="wrap">
+    <div class="about-header">
+      <header class="page-heading about-heading">
+        <p class="eyebrow">A LITTLE CONTEXT</p><h1>
+          Hello, I’m Yangyi<span class="accent-period">.</span>
+        </h1><p>I like AI, art, and crows.<br />And I’m curious about where they might lead me.</p>
+      </header><img
+        class="about-photo"
+        src="/assets/img/avatar.jpg"
+        alt="Yangyi Liu’s profile artwork"
+        width="200"
+        height="220"
+      />
+    </div>
+    <div class="about-grid">
+      <aside class="about-sidebar" aria-label="Background and links">
+        <p class="eyebrow">CURRENTLY</p><a href="https://www.amadeusbio.ai">AmadeusBio.ai ↗</a><p>
+          Agentic systems for<br />bioinformatic analysis.<br />2026–present
+        </p><p class="eyebrow">BACKGROUND</p><p>
+          B.S. Molecular and Cell Biology<br />UC San Diego · Class of ’26<br />Cum Laude
+        </p><p class="eyebrow">FIND ME</p><a href={`mailto:${site.email}`}>Email ↗</a>{
+          site.links.map(({ label, href }) => <a href={href}>{label} ↗</a>)
+        }<p class="eyebrow">BASED IN</p><p>{site.location}</p>
+      </aside><div class="prose about-prose"><Content /></div>
+    </div>
+  </div>
+</Base>

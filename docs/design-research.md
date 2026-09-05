@@ -38,4 +38,4 @@ The June 1 article retains `/posts/useful-llm-best-practices/`. Its title is dis
 
 Four original drafts are retained verbatim in `drafts/legacy/`, outside the publishing collection. Profile artwork and emblems remain at their existing asset paths. Archives, categories, and tags redirect to Writing. `/feed.xml` and `/llms.txt` are generated from current published content.
 
-`public/sw.js` retires the old Chirpy PWA worker. Deployment preserves Git history and an archive tag without a force push. The old working directory is removed only after the replacement deploys successfully.
+`public/sw.min.js` preserves the exact legacy worker URL and loads `public/sw.js` to retire the old Chirpy PWA. Deployment preserves Git history under `chirpy-archive-2026-09-05` without a force push. After successful deployment, the previous local checkout was archived as `chirpy-archive-2026-09-05/`, and the replacement was moved into the active `starryark.github.io/` directory. A verified `chirpy-backup-2026-09-05.bundle` also preserves the original Git history.

@@ -14,13 +14,14 @@ try {
     await document.fonts.ready;
     document.querySelector('.site-header')?.remove();
     document.querySelector('.site-footer')?.remove();
-    document
-      .querySelectorAll('main section:not(.home-hero)')
-      .forEach((section) => section.remove());
-    document.querySelector('.hero-copy .text-link')?.remove();
+    document.querySelectorAll('main section, .page-toc').forEach((section) => section.remove());
+    const address = document.createElement('p');
+    address.className = 'preview-address';
+    address.textContent = new URL(document.querySelector('link[rel="canonical"]').href).hostname;
+    document.querySelector('.home-intro').append(address);
     const style = document.createElement('style');
     style.textContent =
-      '.wrap{padding-inline:65px}.home-hero{padding-block:60px;min-height:630px;grid-template-columns:1.3fr 1fr}.home-hero h1{font-size:76px}.hero-description{font-size:19px;max-width:430px}.eyebrow{font-size:12px}.hero-illustration{width:420px}.specimen-label{font-size:12px}.hero-copy .eyebrow{margin-bottom:28px}';
+      '.wrap{width:100%;padding:100px 90px}.page-grid{display:block}.home-intro{max-width:940px}.home-intro h1{font-size:56px;margin-bottom:36px}.home-intro p{font-size:27px;line-height:1.6}.preview-address{color:var(--muted);margin-top:60px}';
     document.head.append(style);
   });
   await mkdir('public', { recursive: true });

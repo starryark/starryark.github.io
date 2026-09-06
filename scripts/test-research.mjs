@@ -41,7 +41,7 @@ try {
     );
   sample = sample.replace(
     '## 3. Results',
-    `## 3. Results\n\n<Figure id="fig-check" number={1} src="/favicon.svg" alt="An eight-spoke terracotta star on an ivory square, used to verify figure rendering." caption="A template verification image, not research data." width={64} height={64} />\n\nSee [Figure 1](#fig-check).\n\n| Input | Output |\n| --- | --- |\n| One | Two |\n\nA footnote for the reader.[^check]\n\n[^check]: This is a verification footnote.`,
+    `## 3. Results\n\n<Figure id="fig-check" number={1} src="/favicon-96x96.png" alt="The original profile artwork, used to verify figure rendering." caption="A template verification image, not research data." width={64} height={64} />\n\nSee [Figure 1](#fig-check).\n\n| Input | Output |\n| --- | --- |\n| One | Two |\n\nA footnote for the reader.[^check]\n\n[^check]: This is a verification footnote.`,
   );
   await writeFile(files[0], sample, { flag: 'wx' });
   await writeFile(

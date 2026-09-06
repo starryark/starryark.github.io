@@ -84,7 +84,9 @@ const schema = {
   <article class="wrap article-shell" data-pagefind-body>
     <a class="back-link" href="/writing/">← All writing</a>
     <header class="article-header">
-      <p class="eyebrow">{d.kind}{d.status && ` / ${d.status}`}{d.venue && ` / ${d.venue}`}</p><h1>
+      <p class="article-kind">
+        {d.kind}{d.status && ` / ${d.status}`}{d.venue && ` / ${d.venue}`}
+      </p><h1>
         {d.title}
       </h1><p class="article-deck">{d.description}</p><div class="article-meta">
         {
@@ -113,7 +115,7 @@ const schema = {
     </header>
     <div class="article-grid">
       <aside class="article-toc" aria-label="Table of contents">
-        <p class="eyebrow">ON THIS PAGE</p><nav>
+        <p>On this page</p><nav>
           {
             toc.map((heading) => (
               <a href={`#${heading.slug}`} class:list={{ 'toc-secondary': heading.depth === 3 }}>
@@ -160,7 +162,8 @@ const schema = {
             <button class="article-action" data-copy-citation hidden>Copy BibTeX</button><a
               class="article-action"
               href={`/citations/${post.id}.bib`}
-              download>Download .bib ↓</a>
+              download>Download .bib ↓</a
+            >
           </div><p class="citation-status" role="status" id="citation-status"></p>
         </details>
         {

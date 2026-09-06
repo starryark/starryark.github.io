@@ -1,9 +1,11 @@
 ---
-import '@fontsource-variable/newsreader';
-import '@fontsource-variable/newsreader/wght-italic.css';
-import '@fontsource-variable/dm-sans';
+import '@fontsource/source-sans-pro/latin-400.css';
+import '@fontsource/source-sans-pro/latin-400-italic.css';
+import '@fontsource/source-sans-pro/latin-600.css';
+import '@fontsource/source-sans-pro/latin-700.css';
 import '../styles/global.css';
 import Icon from '../components/Icon.astro';
+import BrandIcon from '../components/BrandIcon.astro';
 import { site } from '../site';
 interface Props {
   title?: string;
@@ -44,13 +46,11 @@ const nav = [
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:image" content={new URL(image, site.url).href} />
-    <meta
-      property="og:image:alt"
-      content="Yangyi Liu — Biology, intelligence, and a little curiosity."
-    />
+    <meta property="og:image:alt" content={`${site.name} — ${site.tagline}`} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#f5f3eb" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#f8f9fa" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link
       rel="alternate"
       type="application/rss+xml"
@@ -73,13 +73,9 @@ const nav = [
   </head>
   <body>
     <a class="skip-link" href="#main">Skip to content</a>
-    <header class="site-header wrap">
-      <a class="wordmark" href="/" aria-label="Yangyi Liu, home"
-        ><span class="asterisk" aria-hidden="true">✳</span> Yangyi Liu<span class="wordmark-dot"
-          >.</span
-        ></a
-      >
-      <nav aria-label="Main navigation" class="desktop-nav">
+    <header class="site-header">
+      <a class="wordmark" href="/" aria-label={`${site.name}, home`}>{site.name}</a>
+      <nav aria-label="Main navigation" class="site-nav">
         {
           nav.map(({ label, href }) => (
             <a
@@ -96,6 +92,11 @@ const nav = [
         }
       </nav>
       <div class="header-actions">
+        <a
+          class="header-github"
+          href={site.links.find((link) => link.label === 'GitHub')?.href}
+          rel="me"><BrandIcon name="GitHub" size={18} /> GitHub</a
+        >
         <a class="icon-button" href="/search/" aria-label="Search the site" title="Search (Ctrl K)"
           ><Icon name="search" /></a
         >
@@ -108,40 +109,12 @@ const nav = [
             ><Icon name="moon" /></span
           ></button
         >
-        <a class="header-contact" href={`mailto:${site.email}`}
-          >Say hello <Icon name="external" size={17} /></a
-        >
       </div>
     </header>
     <main id="main" tabindex="-1"><slot /></main>
     <footer class="site-footer">
-      <div class="wrap footer-top">
-        <div>
-          <p class="eyebrow">THE CONVERSATION CONTINUES</p><h2>
-            Always happy to<br /><em>compare notes.</em>
-          </h2><a class="footer-email" href={`mailto:${site.email}`}
-            >{site.email}<Icon name="external" /></a>
-        </div>
-        <div class="footer-links">
-          <p class="eyebrow">ELSEWHERE</p>{
-            site.links.map(({ label, href }) => (
-              <a href={href} rel="me">
-                {label}
-                <Icon name="external" size={16} />
-              </a>
-            ))
-          }
-        </div>
-        <div class="footer-note">
-          <span class="asterisk" aria-hidden="true">✳</span><p>
-            Biology, intelligence,<br />and a little curiosity.
-          </p><a href="/feed.xml">Follow via RSS <Icon name="rss" size={15} /></a>
-        </div>
-      </div>
-      <div class="wrap footer-bottom">
-        <span>© {new Date().getFullYear()} {site.name}</span><span>{site.location}</span><a
-          href="#main">Back to top ↑</a>
-      </div>
+      <span>© {new Date().getFullYear()} {site.name}</span>
+      <a href="/feed.xml">RSS</a>
     </footer>
     <script>
       const toggle = document.querySelector<HTMLButtonElement>('.theme-toggle');

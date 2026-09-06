@@ -1,0 +1,36 @@
+---
+import {
+  faGithub,
+  faLinkedin,
+  faPixiv,
+  faDiscord,
+  faSteam,
+} from '@fortawesome/free-brands-svg-icons';
+
+const icons = {
+  GitHub: faGithub,
+  LinkedIn: faLinkedin,
+  Pixiv: faPixiv,
+  Discord: faDiscord,
+  Steam: faSteam,
+};
+interface Props {
+  name: keyof typeof icons;
+  size?: number;
+}
+const { name, size = 16 } = Astro.props;
+const [width, height, , , path] = icons[name].icon;
+const paths = Array.isArray(path) ? path : [path];
+---
+
+<!-- Brand icons: Font Awesome Free by Fonticons, Inc. https://fontawesome.com/license/free (CC BY 4.0). -->
+<svg
+  width={size}
+  height={size}
+  viewBox={`0 0 ${width} ${height}`}
+  fill="currentColor"
+  aria-hidden="true"
+  focusable="false"
+>
+  {paths.map((d) => <path d={d} />)}
+</svg>

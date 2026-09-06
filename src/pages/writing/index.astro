@@ -12,9 +12,7 @@ const kinds = [...new Set(posts.map((post) => post.data.kind))];
 >
   <div class="wrap writing-page">
     <header class="page-heading">
-      <p class="eyebrow">THE NOTEBOOK</p><h1>Writing<span class="accent-period">.</span></h1><p>
-        Things I’m learning, questions I’m following,<br />and ideas worth keeping.
-      </p>
+      <h1>Writing</h1>
     </header>
     <div class="writing-tools" hidden data-enhanced>
       <div class="filter-tabs" role="group" aria-label="Filter by type">
@@ -31,11 +29,11 @@ const kinds = [...new Set(posts.map((post) => post.data.kind))];
         ><Icon name="search" size={18} /><span class="sr-only">Search writing</span><input
           type="search"
           id="writing-query"
-          placeholder="Search the notebook"
+          placeholder="Search writing"
           autocomplete="off"
-        /></label>
+        /></label
+      >
     </div>
-    <div class="archive-label"><span>DATE</span><span>TITLE & NOTES</span><span>TYPE</span></div>
     <div id="writing-list">
       {
         posts.map((post) => (
@@ -48,12 +46,9 @@ const kinds = [...new Set(posts.map((post) => post.data.kind))];
               <time datetime={post.data.date.toISOString()}>{shortDate(post.data.date)}</time>
               <div>
                 <>
-                  <a href={postUrl(post)}>
-                    <h2>
-                      {post.data.title}
-                      <Icon name="arrow" />
-                    </h2>
-                  </a>
+                  <h2>
+                    <a href={postUrl(post)}>{post.data.title}</a>
+                  </h2>
                   <p>{post.data.description}</p>
                   <span class="reading-time">{readingTime(post.body)} min read</span>
                 </>
@@ -70,9 +65,10 @@ const kinds = [...new Set(posts.map((post) => post.data.kind))];
     <div class="archive-end">
       <p id="writing-count" aria-live="polite">
         {posts.length}
-        {posts.length === 1 ? 'article' : 'articles'} · More to come.
+        {posts.length === 1 ? 'article' : 'articles'}
       </p><a class="text-link small-link" href="/feed.xml"
-        >Follow via RSS <Icon name="rss" size={17} /></a>
+        >Follow via RSS <Icon name="rss" size={17} /></a
+      >
     </div>
   </div>
   <script>
@@ -100,7 +96,7 @@ const kinds = [...new Set(posts.map((post) => post.data.kind))];
       );
       document.querySelector<HTMLElement>('#writing-empty')!.hidden = count !== 0;
       document.querySelector('#writing-count')!.textContent =
-        `${count} ${count === 1 ? 'article' : 'articles'}${input.value || kind !== 'All' ? ' found.' : ' · More to come.'}`;
+        `${count} ${count === 1 ? 'article' : 'articles'}${input.value || kind !== 'All' ? ' found.' : ''}`;
       const next = new URLSearchParams();
       if (input.value) next.set('q', input.value);
       if (kind !== 'All') next.set('topic', kind);

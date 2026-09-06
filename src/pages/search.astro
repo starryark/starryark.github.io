@@ -6,9 +6,7 @@ import Icon from '../components/Icon.astro';
 <Base title="Search" description="Search Yangyi Liu’s writing and website." noindex>
   <div class="wrap search-page">
     <header class="page-heading">
-      <p class="eyebrow">FOLLOW A THREAD</p><h1>Search<span class="accent-period">.</span></h1><p>
-        A word, an idea, or something you remember reading.
-      </p>
+      <h1>Search</h1>
     </header>
     <form class="site-search-form" action="/search/" role="search">
       <Icon name="search" size={24} /><label for="site-query" class="sr-only">Search the site</label
@@ -16,12 +14,12 @@ import Icon from '../components/Icon.astro';
         id="site-query"
         type="search"
         name="q"
-        placeholder="Search writing, ideas, and more…"
+        placeholder="Search this site"
         autocomplete="off"
       /><button type="submit">Search</button>
     </form>
     <p class="search-status" id="search-status" role="status">
-      Type a few words to search the notebook.
+      Search articles and the about page.
     </p><div id="search-results"></div>
     <noscript
       ><p>
@@ -45,7 +43,7 @@ import Icon from '../components/Icon.astro';
       history.replaceState(null, '', '/search/' + (query ? '?q=' + encodeURIComponent(query) : ''));
       results.replaceChildren();
       if (!query) {
-        status.textContent = 'Type a few words to search the notebook.';
+        status.textContent = 'Search articles and the about page.';
         return;
       }
       status.textContent = 'Searching…';
@@ -80,12 +78,12 @@ import Icon from '../components/Icon.astro';
           const article = document.createElement('article');
           article.className = 'search-result';
           const kind = document.createElement('p');
-          kind.className = 'eyebrow';
+          kind.className = 'result-kind';
           kind.textContent = match.kind;
           const heading = document.createElement('h2');
           const link = document.createElement('a');
           link.href = match.url;
-          link.textContent = match.title + ' →';
+          link.textContent = match.title;
           heading.append(link);
           const description = document.createElement('p');
           description.textContent = match.description;

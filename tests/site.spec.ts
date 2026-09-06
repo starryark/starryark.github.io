@@ -219,6 +219,6 @@ test('legacy PWA retirement clears Chirpy caches and leaves other caches alone',
       page.evaluate(async () => (await navigator.serviceWorker.getRegistrations()).length),
     )
     .toBe(0);
-  await expect(page.locator('h1')).toContainText('curiosity');
+  await expect(page.locator('h1')).toHaveText('Yangyi Liu');
   expect(await page.evaluate(() => caches.keys())).toEqual(['other-project-test']);
 });

@@ -1,6 +1,6 @@
 # Fieldnotes
 
-Yangyi Liu's personal website, built from scratch with Astro. Warm paper colors, serif typography, a custom crow illustration, and a research-ready writing layout.
+Yangyi Liu's personal website, built with Astro. A text-first layout based on [Forrest Sheldon's site](https://forrestsheldon.github.io/), with Source Sans Pro, a white background, simple navigation, and a research-ready writing layout.
 
 **Live:** https://starryark.github.io
 
@@ -52,10 +52,10 @@ Keep analysis environments, model weights, and large datasets in their own repos
 | Header, footer, shared metadata                          | `src/layouts/Base.astro`     |
 | Homepage                                                 | `src/pages/index.astro`      |
 | Biography                                                | `src/content/pages/about.md` |
-| Background sidebar                                       | `src/pages/about.astro`      |
+| About layout and section navigation                      | `src/pages/about.astro`      |
 | Content metadata schema                                  | `src/content.config.ts`      |
 
-When reusing the code, replace the personal writing, profile artwork, author defaults, homepage biography, and about sidebar as well as site settings. The MIT license covers code, not personal content or third-party marks.
+When reusing the code, replace the personal writing, profile artwork, author defaults, and homepage biography as well as site settings. The MIT license covers code, not personal content or third-party marks.
 
 The 1200×630 social preview is generated from the actual homepage. After visual changes, run `npm run build`, `npm run preview`, then `npm run social-card`; commit `public/social-card.png` and rebuild.
 
@@ -73,4 +73,4 @@ GitHub Pages uses **GitHub Actions** as its publishing source. The workflow chec
 
 The original Chirpy history is preserved, with the old site marked by an archive tag. `public/sw.js` is a retirement worker for old cached installations, not a new offline app.
 
-See [design research and migration decisions](docs/design-research.md) for the inspected Anthropic and Forrest Sheldon references, the framework choice, and migration details.
+See [design research and migration decisions](docs/design-research.md) for the reference site, framework choice, and content provenance.

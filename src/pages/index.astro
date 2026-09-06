@@ -1,100 +1,75 @@
 ---
 import Base from '../layouts/Base.astro';
-import Crow from '../components/Crow.astro';
-import ContextArt from '../components/ContextArt.astro';
-import Icon from '../components/Icon.astro';
-import { publishedPosts, postUrl, shortDate, readingTime } from '../lib/content';
-const posts = await publishedPosts();
-const featured = posts.find((p) => p.data.featured) || posts[0];
+import BrandIcon from '../components/BrandIcon.astro';
+import { publishedPosts, postUrl, shortDate } from '../lib/content';
+import { site } from '../site';
+const posts = (await publishedPosts()).slice(0, 5);
 ---
 
 <Base>
-  <div class="wrap">
-    <section class="home-hero" aria-labelledby="intro-title">
-      <div class="hero-copy">
-        <p class="eyebrow"><span class="status-dot"></span> AN OPEN NOTEBOOK · YANGYI LIU</p><h1
-          id="intro-title"
-        >
-          Biology, intelligence,<br />and a little<br /><em>curiosity.</em>
-        </h1><p class="hero-description">
-          I’m Yangyi. I explore how AI can help us understand living systems. Along the way, I make
-          art, feed crows, and write things down.
-        </p><a class="text-link" href="/about/">A little more about me <Icon name="arrow" /></a>
-      </div>
-      <div class="hero-illustration">
-        <Crow /><span class="specimen-label"><span>FIG. 01</span> A fellow curious mind.</span>
-      </div>
-    </section>
-    <section class="latest-section" aria-labelledby="latest-heading">
-      <div class="section-heading">
-        <h2 id="latest-heading">From the notebook</h2><a
-          class="text-link small-link"
-          href="/writing/">All writing <Icon name="arrow" size={18} /></a>
-      </div>
-      {
-        featured && (
-          <a class="featured-post" href={postUrl(featured)}>
-            <div class="featured-art">
-              <ContextArt />
-            </div>
-            <div class="featured-copy">
-              <>
-                <p class="eyebrow">
-                  {featured.data.kind} <span class="meta-divider">/</span>{' '}
-                  {shortDate(featured.data.date)}
-                </p>
-                <h3>{featured.data.title}</h3>
-                <p>{featured.data.description}</p>
-                <span class="read-label">
-                  Read the article{' '}
-                  <>
-                    <Icon name="arrow" size={18} />
-                    <span>{readingTime(featured.body)} min read</span>
-                  </>
-                </span>
-              </>
-            </div>
-          </a>
-        )
-      }
-    </section>
-    <section class="current-section" aria-labelledby="current-heading">
-      <div>
-        <p class="eyebrow">CURRENTLY EXPLORING</p><h2 id="current-heading">
-          AI for the messy,<br /><em>living world.</em>
-        </h2>
-      </div><div class="current-copy">
+  <div class="wrap page-grid home-page">
+    <div class="page-content prose">
+      <header class="home-intro">
+        <h1>{site.name}</h1>
         <p>
-          I’m developing agentic systems for bioinformatic analysis at AmadeusBio.ai. My background
-          is in molecular and cell biology at UC San Diego.
-        </p><p>
-          I’m especially interested in what happens when new tools meet the open questions of
-          biological research.
-        </p><a class="text-link" href="https://www.amadeusbio.ai"
-          >AmadeusBio.ai <Icon name="external" size={19} /></a>
-      </div>
-    </section>
-    <section class="interests-section" aria-labelledby="interests-heading">
-      <div class="section-heading">
-        <h2 id="interests-heading">Beyond the work</h2><span class="quiet-note"
-          >A few recurring interests</span>
-      </div><div class="interest-grid">
-        <a href="/about/#art"
-          ><span class="interest-number">01 /</span><h3>
-            Art & illustration <Icon name="external" />
-          </h3><p>Drawing, visual novels, and the stories we find ourselves in.</p></a
-        >
-        <a href="/about/#artificial-intelligence"
-          ><span class="interest-number">02 /</span><h3>
-            Learning in the open <Icon name="external" />
-          </h3><p>New tools, unexpected connections, and asking better questions.</p></a
-        >
-        <a href="/about/#crows"
-          ><span class="interest-number">03 /</span><h3>
-            The neighborhood crows <Icon name="external" />
-          </h3><p>A reason to step outside and see the world a little differently.</p></a
-        >
-      </div>
-    </section>
+          I’m developing agentic systems for bioinformatic analysis at{' '}
+          <a href="https://www.amadeusbio.ai">AmadeusBio.ai</a>. I graduated with a B.S. in
+          Molecular and Cell Biology from UC San Diego, Class of ’26.
+        </p>
+      </header>
+      <section aria-labelledby="recent-writing">
+        <h2 id="recent-writing">Recent writing</h2>
+        {
+          posts.length ? (
+            <div class="recent-posts">
+              {posts.map((post) => (
+                <article class="recent-post">
+                  <h3>
+                    <a href={postUrl(post)}>{post.data.title}</a>
+                  </h3>
+                  <p class="post-date">
+                    <time datetime={post.data.date.toISOString()}>{shortDate(post.data.date)}</time>{' '}
+                    · {post.data.kind}
+                  </p>
+                  <p>{post.data.description}</p>
+                </article>
+              ))}
+            </div>
+          ) : (
+            <p>No published writing yet.</p>
+          )
+        }
+        <p><a href="/writing/">Browse all writing</a></p>
+      </section>
+      <section aria-labelledby="about-me">
+        <h2 id="about-me">About me</h2>
+        <p>{site.tagline}</p>
+        <p><a href="/about/">More about me</a></p>
+      </section>
+      <section aria-labelledby="contact">
+        <h2 id="contact">Contact</h2>
+        <p>You can reach me at <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
+        <ul class="social-links" aria-label="Social profiles">
+          {
+            site.links.map(({ label, href }) => (
+              <li>
+                <a href={href} rel="me">
+                  <BrandIcon name={label} />
+                  {label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </div>
+    <aside class="page-toc" aria-label="On this page">
+      <p>On this page</p>
+      <nav>
+        <a href="#recent-writing">Recent writing</a>
+        <a href="#about-me">About me</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </aside>
   </div>
 </Base>

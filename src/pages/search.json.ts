@@ -1,5 +1,6 @@
 import { getCollection } from 'astro:content';
 import { publishedPosts, postUrl, plainText } from '../lib/content';
+import { work } from '../profile';
 export async function GET() {
   const entries = [
     ...(await publishedPosts()).map((post) => ({
@@ -15,6 +16,13 @@ export async function GET() {
       body: plainText(page.body),
       url: `/${page.id}/`,
       kind: 'Page',
+    })),
+    ...work.map((item) => ({
+      title: item.title,
+      description: item.summary,
+      body: [item.context, ...item.details, item.role, item.limits ?? ''].join(' '),
+      url: `/work/#${item.id}`,
+      kind: 'Work',
     })),
   ];
   return new Response(JSON.stringify(entries), {

@@ -1,0 +1,177 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../site';
+import { profile, work, experience, posters, skills, coursework } from '../profile';
+const { education } = profile;
+const github = site.links.find((link) => link.label === 'GitHub')!;
+const linkedin = site.links.find((link) => link.label === 'LinkedIn')!;
+// Wet-lab projects already appear under Experience and Posters; superseded tools stay on /work/.
+const projects = work.filter(
+  (item) => item.group !== 'Wet-lab research' && item.status.tone !== 'archived',
+);
+---
+
+<Base
+  title="CV"
+  description="Curriculum vitae of Yangyi (Frank) Liu: founder of AmadeusBio.ai; B.S. Molecular and Cell Biology, UC San Diego, cum laude."
+>
+  <div class="wrap page-grid cv-page">
+    <div class="page-content">
+      <header class="page-heading cv-heading">
+        <h1>Yangyi (Frank) Liu</h1>
+        <p class="cv-headline">{profile.role} · {profile.company.description}</p>
+        <p class="cv-contact">
+          <span>{site.location}</span>
+          <a href={`mailto:${site.email}`}>{site.email}</a>
+          <a href={`${site.url}/`}>starryark.github.io</a>
+          <a href={github.href}>github.com/starryark</a>
+          <a href={linkedin.href}>{linkedin.href.replace('https://www.', '')}</a>
+        </p>
+        <p class="cv-tools">
+          <button type="button" class="article-action" hidden data-print>
+            Print or save as PDF
+          </button>
+          <noscript><a href="/cv.pdf">Open the CV as a PDF</a></noscript>
+        </p>
+      </header>
+
+      <section aria-labelledby="education">
+        <h2 id="education">Education</h2>
+        <ol class="ledger">
+          <li class="ledger-row">
+            <p class="ledger-date">2023–2025</p>
+            <div class="ledger-body">
+              <p class="timeline-title">{education.degree}, {education.school}</p>
+              <p>
+                {education.college}. Conferred {education.conferred}. GPA {education.gpa}.
+              </p>
+              <p class="cv-honors">
+                {
+                  education.honors.map(({ name, detail }) => (
+                    <span>
+                      <strong>{name}</strong>
+                      {detail && `, ${detail}`}.
+                    </span>
+                  ))
+                }
+              </p>
+              <p class="cv-verify">
+                CeDiD <code>{education.diploma.id}</code>, verifiable at <a
+                  href={education.diploma.verifyUrl}>diploma.ucsd.edu</a
+                >.
+              </p>
+            </div>
+          </li>
+        </ol>
+      </section>
+
+      <section aria-labelledby="experience">
+        <h2 id="experience">Experience</h2>
+        <ol class="ledger">
+          {
+            experience.map((entry) => (
+              <li class="ledger-row">
+                <p class="ledger-date">{entry.dates}</p>
+                <div class="ledger-body">
+                  <p class="timeline-title">
+                    {entry.title}, {entry.org}
+                  </p>
+                  <p>
+                    {entry.text}
+                    {entry.evidence && (
+                      <a class="cv-evidence" href={entry.evidence.href}>
+                        {entry.evidence.label}
+                      </a>
+                    )}
+                  </p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </section>
+
+      <section aria-labelledby="cv-work">
+        <h2 id="cv-work">Selected work</h2>
+        <ol class="ledger">
+          {
+            projects.map((item) => (
+              <li class="ledger-row">
+                <p class="ledger-date">{item.when}</p>
+                <div class="ledger-body">
+                  <p class="timeline-title">
+                    <a href={`/work/#${item.id}`}>{item.title}</a>. {item.context}.
+                  </p>
+                  <p>{item.summary}</p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </section>
+
+      <section aria-labelledby="posters" class="cv-posters">
+        <h2 id="posters">Posters</h2>
+        <ol class="ledger">
+          {
+            posters.map((poster) => (
+              <li class="ledger-row">
+                <p class="ledger-date">{poster.year}</p>
+                <div class="ledger-body">
+                  <p>
+                    {poster.authors.split(', ').map((author, index) => (
+                      <>
+                        {index > 0 && ', '}
+                        {author === site.name ? <strong>{author}</strong> : author}
+                      </>
+                    ))}
+                    . “{poster.title}.” <em>{poster.venue}</em>, {poster.year}.
+                  </p>
+                </div>
+              </li>
+            ))
+          }
+        </ol>
+      </section>
+
+      <section aria-labelledby="skills">
+        <h2 id="skills">Skills</h2>
+        <dl class="cv-skills">
+          {
+            skills.map(({ area, items }) => (
+              <div>
+                <dt>{area}</dt>
+                <dd>{items}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </section>
+
+      <section aria-labelledby="coursework" class="cv-coursework">
+        <h2 id="coursework">Selected coursework</h2>
+        <p>{coursework.join(' · ')}</p>
+      </section>
+    </div>
+    <aside class="page-toc" aria-label="On this page">
+      <p>On this page</p>
+      <nav>
+        <a href="#education">Education</a>
+        <a href="#experience">Experience</a>
+        <a href="#cv-work">Selected work</a>
+        <a href="#posters">Posters</a>
+        <a href="#skills">Skills</a>
+        <a href="#coursework">Coursework</a>
+      </nav>
+    </aside>
+  </div>
+</Base>
+
+<script>
+  // The print dialog's preview offers Save as PDF; the print stylesheet keeps it to one page.
+  const print = document.querySelector<HTMLButtonElement>('[data-print]');
+  if (print) {
+    print.hidden = false;
+    print.addEventListener('click', () => window.print());
+  }
+</script>

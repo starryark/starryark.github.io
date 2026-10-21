@@ -1,0 +1,10 @@
+---
+import type { Tone } from '../profile';
+interface Props {
+  label: string;
+  tone: Tone;
+}
+const { label, tone } = Astro.props;
+---
+
+<span class={`status status-${tone}`}>{label}</span>

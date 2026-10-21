@@ -1,0 +1,100 @@
+---
+// One dated entry of work. Compact on the homepage, optionally with its figure;
+// full on /work/, with details, figure, role, limits, and every evidence link.
+import Icon from './Icon.astro';
+import Status from './Status.astro';
+import type { Work } from '../profile';
+interface Props {
+  item: Work;
+  full?: boolean;
+  showFigure?: boolean;
+}
+const { item, full = false, showFigure = false } = Astro.props;
+const evidence = full ? item.evidence : item.evidence.slice(0, 2);
+const figure = full || showFigure ? item.figure : undefined;
+---
+
+<li class="ledger-row work-item" id={full ? item.id : undefined}>
+  <p class="ledger-date">{item.when}</p>
+  <div class="ledger-body">
+    <h3 class="work-title">
+      {full ? item.title : <a href={`/work/#${item.id}`}>{item.title}</a>}
+    </h3>
+    <p class="work-meta">
+      <span>{item.context}</span>
+      {full && item.dates !== item.when && <span>{item.dates}</span>}
+      <Status {...item.status} />
+    </p>
+    <p>{item.summary}</p>
+    {full && item.details.map((detail) => <p>{detail}</p>)}
+    {
+      figure && (
+        <figure class="work-figure">
+          {figure.video ? (
+            <video
+              controls
+              muted
+              playsinline
+              preload="none"
+              poster={figure.video.poster}
+              width={figure.width}
+              height={figure.height}
+              aria-label={figure.alt}
+            >
+              {figure.video.sources.map(({ src, type }) => (
+                <source src={src} type={type} />
+              ))}
+              <a href={figure.video.sources.at(-1)?.src}>Download the film</a>
+            </video>
+          ) : (
+            <img
+              src={figure.src}
+              srcset={figure.srcset}
+              sizes="(max-width: 1000px) 100vw, 720px"
+              width={figure.width}
+              height={figure.height}
+              alt={figure.alt}
+              loading={full ? 'lazy' : 'eager'}
+              decoding="async"
+            />
+          )}
+          <figcaption>{figure.caption}</figcaption>
+          {figure.video && (
+            <details class="film-description">
+              <summary>Describe the film</summary>
+              <p>{figure.video.description}</p>
+            </details>
+          )}
+        </figure>
+      )
+    }
+    {
+      full && (
+        <>
+          <p class="work-note">
+            <strong>Role.</strong> {item.role}
+          </p>
+          {item.limits && (
+            <p class="work-note">
+              <strong>Limits.</strong> {item.limits}
+            </p>
+          )}
+        </>
+      )
+    }
+    {
+      evidence.length > 0 && (
+        <ul class="evidence" aria-label={`Evidence for ${item.title}`}>
+          {evidence.map(({ label, href }) => (
+            <li>
+              <a href={href}>
+                {label}
+                <Icon name="external" size={13} />
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </div>
+</li>

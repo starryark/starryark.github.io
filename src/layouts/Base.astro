@@ -3,10 +3,13 @@ import '@fontsource/source-sans-pro/latin-400.css';
 import '@fontsource/source-sans-pro/latin-400-italic.css';
 import '@fontsource/source-sans-pro/latin-600.css';
 import '@fontsource/source-sans-pro/latin-700.css';
+import '@fontsource/ibm-plex-mono/latin-400.css';
+import '@fontsource/ibm-plex-mono/latin-500.css';
 import '../styles/global.css';
 import Icon from '../components/Icon.astro';
 import BrandIcon from '../components/BrandIcon.astro';
 import { site } from '../site';
+import { profile } from '../profile';
 interface Props {
   title?: string;
   description?: string;
@@ -25,9 +28,17 @@ const pathname = Astro.url.pathname;
 const canonical = new URL(pathname, site.url).href;
 const nav = [
   { label: 'Home', href: '/' },
+  { label: 'Work', href: '/work/' },
   { label: 'Writing', href: '/writing/' },
+  { label: 'CV', href: '/cv/' },
   { label: 'About', href: '/about/' },
 ];
+const updated = new Intl.DateTimeFormat('en-US', {
+  month: 'short',
+  day: 'numeric',
+  year: 'numeric',
+  timeZone: 'UTC',
+}).format(new Date(profile.updated));
 ---
 
 <!doctype html>
@@ -48,7 +59,8 @@ const nav = [
     <meta property="og:image" content={new URL(image, site.url).href} />
     <meta property="og:image:alt" content={`${site.name} — ${site.tagline}`} />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="theme-color" content="#f8f9fa" />
+    <meta name="theme-color" content="#f8f9fa" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#292e33" media="(prefers-color-scheme: dark)" />
     <link rel="icon" href="/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
     <link
@@ -114,7 +126,9 @@ const nav = [
     <main id="main" tabindex="-1"><slot /></main>
     <footer class="site-footer">
       <span>© {new Date().getFullYear()} {site.name}</span>
-      <a href="/feed.xml">RSS</a>
+      <span>Updated <time datetime={profile.updated}>{updated}</time></span>
+      <span class="footer-links"><a href="/colophon/">Colophon</a> <a href="/feed.xml">RSS</a></span
+      >
     </footer>
     <script>
       const toggle = document.querySelector<HTMLButtonElement>('.theme-toggle');

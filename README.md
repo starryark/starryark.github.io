@@ -1,6 +1,6 @@
 # Fieldnotes
 
-Yangyi Liu's personal website, built with Astro. A text-first layout based on [Forrest Sheldon's site](https://forrestsheldon.github.io/), with Source Sans Pro, a white background, simple navigation, and a research-ready writing layout.
+Yangyi Liu's personal website, built with Astro. A text-first layout based on [Forrest Sheldon's site](https://forrestsheldon.github.io/): Source Sans Pro, a white background, dated ledgers of work with public evidence, a printable CV, and a research-ready writing layout.
 
 **Live:** https://starryark.github.io
 
@@ -13,7 +13,7 @@ npm ci
 npm run dev
 ```
 
-Open http://127.0.0.1:4321. `npm run build` generates `dist/`; `npm run preview` serves that production build. In agent environments Astro may run the server in the background; `npx astro dev stop` and `npx astro preview stop` stop those servers.
+Open http://127.0.0.1:4321. `npm run build` generates `dist/`, including `dist/cv.pdf`, which the dev server also renders on request (both need Playwright's Chromium: `npx playwright install chromium`); `npm run preview` serves that production build. In agent environments Astro may run the server in the background; `npx astro dev stop` and `npx astro preview stop` stop those servers.
 
 ## Write
 
@@ -46,6 +46,7 @@ Keep analysis environments, model weights, and large datasets in their own repos
 | Change                                                   | File                         |
 | -------------------------------------------------------- | ---------------------------- |
 | Name, description, email, social links                   | `src/site.ts`                |
+| Work, experience, education, posters, skills             | `src/profile.ts`             |
 | Domain and legacy redirects                              | `astro.config.mjs`           |
 | Robots sitemap URL                                       | `public/robots.txt`          |
 | Colors, typography, spacing, responsive and print styles | `src/styles/global.css`      |

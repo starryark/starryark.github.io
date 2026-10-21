@@ -1,57 +1,64 @@
 ---
 import Base from '../layouts/Base.astro';
 import BrandIcon from '../components/BrandIcon.astro';
-import { publishedPosts, postUrl, shortDate } from '../lib/content';
+import Icon from '../components/Icon.astro';
+import WorkItem from '../components/WorkItem.astro';
+import { profilePage } from '../lib/schema';
 import { site } from '../site';
-const posts = (await publishedPosts()).slice(0, 5);
+import { profile, work } from '../profile';
+const featured = work.filter((item) => item.featured);
+const links = site.links.filter((link) => link.primary);
+const nowLabel = new Intl.DateTimeFormat('en-US', {
+  month: 'long',
+  year: 'numeric',
+  timeZone: 'UTC',
+}).format(new Date(profile.updated));
+const toc = [
+  ...(profile.now.length ? [{ id: 'now', label: 'Now' }] : []),
+  { id: 'selected-work', label: 'Selected work' },
+  { id: 'method', label: 'How I work' },
+  { id: 'outside-work', label: 'Outside work' },
+];
+const principles =
+  'https://github.com/AmadeusBio-ai/Molecular_Animation/blob/main/docs/principles.md';
 ---
 
 <Base>
+  <script
+    slot="head"
+    type="application/ld+json"
+    is:inline
+    set:html={JSON.stringify(profilePage('/'))}
+  />
   <div class="wrap page-grid home-page">
-    <div class="page-content prose">
+    <div class="page-content">
       <header class="home-intro">
+        <img
+          class="home-portrait"
+          src="/assets/img/portrait-320.webp"
+          srcset="/assets/img/portrait-320.webp 320w, /assets/img/portrait-640.webp 640w"
+          sizes="160px"
+          width="160"
+          height="160"
+          alt="Portrait of Yangyi Liu"
+        />
         <h1>{site.name}</h1>
-        <p>
-          I’m developing agentic systems for bioinformatic analysis at{' '}
-          <a href="https://www.amadeusbio.ai">AmadeusBio.ai</a>. I graduated with a B.S. in
-          Molecular and Cell Biology from UC San Diego, Class of ’26.
+        <p class="home-role">
+          I founded <a href={profile.company.url}>{profile.company.name}</a>, where I build AI
+          agents that accelerate biological research.
         </p>
-      </header>
-      <section aria-labelledby="recent-writing">
-        <h2 id="recent-writing">Recent writing</h2>
-        {
-          posts.length ? (
-            <div class="recent-posts">
-              {posts.map((post) => (
-                <article class="recent-post">
-                  <h3>
-                    <a href={postUrl(post)}>{post.data.title}</a>
-                  </h3>
-                  <p class="post-date">
-                    <time datetime={post.data.date.toISOString()}>{shortDate(post.data.date)}</time>{' '}
-                    · {post.data.kind}
-                  </p>
-                  <p>{post.data.description}</p>
-                </article>
-              ))}
-            </div>
-          ) : (
-            <p>No published writing yet.</p>
-          )
-        }
-        <p><a href="/writing/">Browse all writing</a></p>
-      </section>
-      <section aria-labelledby="about-me">
-        <h2 id="about-me">About me</h2>
-        <p>{site.tagline}</p>
-        <p><a href="/about/">More about me</a></p>
-      </section>
-      <section aria-labelledby="contact">
-        <h2 id="contact">Contact</h2>
-        <p>You can reach me at <a href={`mailto:${site.email}`}>{site.email}</a>.</p>
-        <ul class="social-links" aria-label="Social profiles">
+        <p>
+          I trained as a molecular and cell biologist at UC San Diego (B.S. 2025, cum laude) and
+          spent two years at the bench, in yeast synthetic biology and C. elegans neurogenetics,
+          before building AI agents for research. <a href="/cv/">CV</a>
+        </p>
+        <p class="home-ask">I’m open to {profile.openTo}. Email is the best way to reach me.</p>
+        <ul class="contact-line" aria-label="Contact and profiles">
+          <li>
+            <a href={`mailto:${site.email}`}><Icon name="email" size={16} />{site.email}</a>
+          </li>
           {
-            site.links.map(({ label, href }) => (
+            links.map(({ label, href }) => (
               <li>
                 <a href={href} rel="me">
                   <BrandIcon name={label} />
@@ -61,14 +68,114 @@ const posts = (await publishedPosts()).slice(0, 5);
             ))
           }
         </ul>
+      </header>
+
+      {
+        profile.now.length > 0 && (
+          <section class="now" aria-labelledby="now">
+            <h2 id="now">
+              Now <span class="heading-note">{nowLabel}</span>
+            </h2>
+            <ul>
+              {profile.now.map(({ text, href }) => (
+                <li>
+                  {text} <a href={href}>Details</a>
+                </li>
+              ))}
+            </ul>
+          </section>
+        )
+      }
+
+      <section aria-labelledby="selected-work">
+        <h2 id="selected-work">Selected work</h2>
+        <ol class="ledger">
+          {featured.map((item) => <WorkItem item={item} showFigure />)}
+        </ol>
+        <p class="section-more">
+          <a href="/work/">All work, with roles, limits, and evidence</a>
+        </p>
+      </section>
+
+      <section aria-labelledby="method">
+        <h2 id="method">How I work with AI agents</h2>
+        <blockquote class="method-quote">
+          <p>
+            “When the data disagrees with the story, show what the data says first. Then add the
+            illustrative step and label it.” <cite
+              ><a href={principles}>From the Molecular Animation principles</a></cite
+            >
+          </p>
+        </blockquote>
+        <dl class="principles">
+          <div>
+            <dt>Measure the science before building on it.</dt>
+            <dd>
+              Molecular Animation fetches the PDB entries and measures every claim a film depends
+              on, in code, before anything is animated. <a
+                href="https://github.com/AmadeusBio-ai/Molecular_Animation/blob/main/docs/workflow.md"
+                >Workflow</a
+              >
+            </dd>
+          </div>
+          <div>
+            <dt>Agents build; checks decide.</dt>
+            <dd>
+              Every build reports its numerical checks. For the channelrhodopsin film, they cover
+              the retinal dihedral path, a salt-bridge distance, the worst bond deviation in the
+              morph, the pathway profile, and ion clearance.
+            </dd>
+          </div>
+          <div>
+            <dt>Label what is known.</dt>
+            <dd>
+              Each beat of a film is tagged experimental, illustrative, or symbolic, so what comes
+              from a deposited structure stays separate from what is drawn. <a href={principles}
+                >Principles</a
+              >
+            </dd>
+          </div>
+          <div>
+            <dt>Inspect before release.</dt>
+            <dd>
+              Before the final render, the stills, a preview contact sheet, and motion statistics
+              that flag jumps and seams are reviewed. A check command re-renders a shot and compares
+              it with the delivered poster.
+            </dd>
+          </div>
+        </dl>
+      </section>
+
+      <section aria-labelledby="outside-work">
+        <h2 id="outside-work">Outside work</h2>
+        <div class="outside-work">
+          <figure class="art-figure">
+            <img
+              src="/assets/img/painting-480.webp"
+              srcset="/assets/img/painting-480.webp 480w, /assets/img/painting-960.webp 960w"
+              sizes="(max-width: 600px) 100vw, 240px"
+              width="240"
+              height="240"
+              alt="A digital painting by Yangyi Liu: a girl with long brown hair sits hugging her knees in a sunlit corridor."
+              loading="lazy"
+              decoding="async"
+            />
+            <figcaption>A digital painting of mine.</figcaption>
+          </figure>
+          <p>
+            I paint and draw, mostly anime-style illustration; a few pieces are on <a
+              href="https://www.pixiv.net/users/41472729">Pixiv</a
+            >. I also read visual novels and feed the crows on campus. <a href="/about/"
+              >More about me</a
+            >
+          </p>
+        </div>
       </section>
     </div>
     <aside class="page-toc" aria-label="On this page">
       <p>On this page</p>
       <nav>
-        <a href="#recent-writing">Recent writing</a>
-        <a href="#about-me">About me</a>
-        <a href="#contact">Contact</a>
+        {toc.map(({ id, label }) => <a href={`#${id}`}>{label}</a>)}
       </nav>
     </aside>
   </div>

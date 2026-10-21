@@ -8,7 +8,17 @@ const article = '/posts/useful-llm-best-practices/';
 test('main pages load, fit the viewport, and pass accessibility checks', async ({ page }) => {
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
-  for (const path of ['/', '/writing/', '/about/', '/search/', article, '/404.html']) {
+  for (const path of [
+    '/',
+    '/work/',
+    '/cv/',
+    '/writing/',
+    '/about/',
+    '/colophon/',
+    '/search/',
+    article,
+    '/404.html',
+  ]) {
     await page.goto(path);
     await page.evaluate(() => document.fonts.ready);
     await expect(page.locator('h1')).toHaveCount(1);
@@ -25,6 +35,71 @@ test('main pages load, fit the viewport, and pass accessibility checks', async (
     ).toEqual([]);
   }
   expect(errors).toEqual([]);
+});
+
+test('profile facts agree across pages and metadata, and private data stays out', async ({
+  page,
+  request,
+}) => {
+  await page.goto('/');
+  const profile = JSON.parse(await page.locator('script[type="application/ld+json"]').innerText());
+  expect(profile['@type']).toBe('ProfilePage');
+  expect(profile.mainEntity.name).toBe('Yangyi Liu');
+  expect(profile.mainEntity.worksFor.name).toBe('AmadeusBio.ai');
+  expect(profile.mainEntity.sameAs).toContain('https://github.com/starryark');
+  const contact = page.getByRole('list', { name: 'Contact and profiles' });
+  await expect(contact.getByRole('link', { name: 'GitHub' })).toBeVisible();
+  await expect(contact.getByRole('link', { name: 'Hugging Face' })).toHaveCount(0);
+  await expect(contact.getByRole('link', { name: 'Steam' })).toHaveCount(0);
+  // The film loads nothing until played, and falls back to the GitHub release.
+  const film = page.locator('.work-figure video');
+  await expect(film).toHaveAttribute('preload', 'none');
+  await expect(film.locator('source').first()).toHaveAttribute(
+    'src',
+    /^https:\/\/www\.amadeusbio\.ai\//,
+  );
+  await expect(film.locator('source').last()).toHaveAttribute(
+    'src',
+    /^https:\/\/github\.com\/AmadeusBio-ai\/Molecular_Animation\/releases\/download\//,
+  );
+  await page.getByRole('link', { name: 'Molecular Animation', exact: true }).click();
+  await expect(page).toHaveURL(/\/work\/#molecular-animation$/);
+  await expect(page.locator('#molecular-animation .evidence a').first()).toHaveAttribute(
+    'href',
+    /^https:\/\//,
+  );
+  await expect(page.locator('#c-elegans-neuronal-morphology')).toContainText('Limits.');
+  await expect(page.locator('#molecular-animation')).toContainText('Limits.');
+  await page.goto('/cv/');
+  await expect(page.locator('main')).toContainText('BIBC 102');
+  await expect(page.locator('main')).toContainText('AmadeusBio, PBC');
+  await expect(page.locator('body')).not.toContainText('AmadeusBio, Inc.');
+  // The button opens the browser's print dialog, whose preview offers Save as PDF.
+  await page.evaluate(() => {
+    (window as unknown as { printed: number }).printed = 0;
+    window.print = () => (window as unknown as { printed: number }).printed++;
+  });
+  await page.getByRole('button', { name: 'Print or save as PDF' }).click();
+  expect(await page.evaluate(() => (window as unknown as { printed: number }).printed)).toBe(1);
+  // Without JavaScript the CV links to the same one-page PDF, rendered at build time.
+  const pdf = await request.get('/cv.pdf');
+  expect(pdf.headers()['content-type']).toContain('application/pdf');
+  const pdfText = (await pdf.body()).toString('latin1');
+  expect(pdfText.startsWith('%PDF')).toBe(true);
+  expect(pdfText.match(/\/Type\s*\/Page[^s]/g)).toHaveLength(1);
+  await expect(page.getByRole('link', { name: /figshare\.30254713/ })).toHaveAttribute(
+    'href',
+    'https://doi.org/10.6084/m9.figshare.30254713',
+  );
+  const llms = await (await request.get('/llms.txt')).text();
+  expect(llms).toContain('### Molecular Animation');
+  expect(llms).toContain('CeDiD 26TK-4GJI-YCUT');
+  // No phone numbers or UC San Diego student IDs anywhere in the published pages.
+  for (const path of ['/', '/work/', '/cv/', '/about/', '/llms.txt', '/search.json']) {
+    const text = (await (await request.get(path)).text()).replace(/<[^>]*>/g, ' ');
+    expect(text, path).not.toMatch(/\(?\b\d{3}\)?[ .-]\d{3}-\d{4}\b/);
+    expect(text, path).not.toMatch(/\bA\d{8}\b/);
+  }
 });
 
 test('navigation, writing search, filters, and empty state work', async ({ page }) => {
@@ -53,6 +128,8 @@ test('full-text search supports body matches, query URLs, and empty results', as
   await page.getByRole('searchbox', { name: 'Search the site' }).fill('quote-grounding');
   await expect(page.locator('.search-result')).toHaveCount(1);
   await expect(page.locator('.search-result')).toContainText('LLM best practices');
+  await page.getByRole('searchbox', { name: 'Search the site' }).fill('channelrhodopsin');
+  await expect(page.locator('.search-result').first()).toContainText('Molecular Animation');
   await page
     .getByRole('searchbox', { name: 'Search the site' })
     .fill('<img src=x onerror=alert(1)>');
@@ -198,6 +275,11 @@ test('essential content and navigation remain usable without JavaScript', async 
   await expect(page.locator('.writing-row')).toBeVisible();
   await page.getByRole('link', { name: 'LLM best practices' }).click();
   await expect(page.locator('.prose')).toContainText('Model Context');
+  await page.goto('http://127.0.0.1:4322/cv/');
+  await expect(page.getByRole('link', { name: 'Open the CV as a PDF' })).toHaveAttribute(
+    'href',
+    '/cv.pdf',
+  );
   await context.close();
 });
 

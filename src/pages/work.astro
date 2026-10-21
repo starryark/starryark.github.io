@@ -1,0 +1,69 @@
+---
+import Base from '../layouts/Base.astro';
+import WorkItem from '../components/WorkItem.astro';
+import { work, type Group } from '../profile';
+const groups: { name: Group; id: string; note: string }[] = [
+  {
+    name: 'AmadeusBio.ai',
+    id: 'amadeusbio',
+    note: 'The company’s research systems are not public. What is public is listed here.',
+  },
+  { name: 'Independent projects', id: 'independent', note: 'Personal work, on my own GitHub.' },
+  {
+    name: 'Wet-lab research',
+    id: 'wet-lab',
+    note: 'Undergraduate research at UC San Diego. The data belong to the labs and are unpublished.',
+  },
+];
+---
+
+<Base
+  title="Work"
+  description="Yangyi Liu’s work at AmadeusBio.ai, independent projects, and wet-lab research, each with dates, role, limits, and public evidence."
+>
+  <div class="wrap page-grid">
+    <div class="page-content">
+      <header class="page-heading">
+        <h1>Work</h1>
+        <p class="page-lede">
+          Each entry gives the dates, my role and what AI did, the limits of the result, and links
+          to evidence you can check. Where nothing is public, the entry says so.
+        </p>
+      </header>
+      {
+        groups.map((group) => (
+          <section aria-labelledby={group.id} class="work-group">
+            <h2 id={group.id}>{group.name}</h2>
+            <p class="group-note">{group.note}</p>
+            <ol class="ledger">
+              {work
+                .filter((item) => item.group === group.name)
+                .map((item) => (
+                  <WorkItem item={item} full />
+                ))}
+            </ol>
+          </section>
+        ))
+      }
+    </div>
+    <aside class="page-toc" aria-label="On this page">
+      <p>On this page</p>
+      <nav>
+        {
+          groups.map((group) => (
+            <>
+              <a href={`#${group.id}`}>{group.name}</a>
+              {work
+                .filter((item) => item.group === group.name)
+                .map((item) => (
+                  <a class="toc-secondary" href={`#${item.id}`}>
+                    {item.title}
+                  </a>
+                ))}
+            </>
+          ))
+        }
+      </nav>
+    </aside>
+  </div>
+</Base>

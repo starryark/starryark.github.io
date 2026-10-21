@@ -7,7 +7,11 @@
   --line: #dee2e6;
   --link: #2459b8;
   --code-background: #f1f3f5;
+  --released: #1d6b3a;
+  --interim: #8a5300;
+  --presented: #0f6670;
   --font: 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --mono: 'IBM Plex Mono', ui-monospace, SFMono-Regular, Consolas, monospace;
   color-scheme: light;
 }
 :root[data-theme='dark'] {
@@ -18,6 +22,9 @@
   --line: #495159;
   --link: #91baff;
   --code-background: #2c3238;
+  --released: #84d4a0;
+  --interim: #f0c36d;
+  --presented: #82d2da;
   color-scheme: dark;
 }
 * {
@@ -216,6 +223,10 @@ p {
 .site-footer a {
   color: inherit;
 }
+.footer-links {
+  display: flex;
+  gap: 1rem;
+}
 .page-grid {
   display: grid;
   grid-template-columns: minmax(0, 894px) 214px;
@@ -332,25 +343,314 @@ p {
 .social-links li {
   margin: 0;
 }
-.recent-post h3 {
-  margin-top: 1.4rem;
-  margin-bottom: 0.3rem;
+/* Homepage, Work, and CV: dated ledgers with evidence. */
+.home-intro::after {
+  content: '';
+  display: block;
+  clear: both;
 }
-.recent-post h3 a {
+.home-portrait {
+  float: right;
+  width: 160px;
+  height: 160px;
+  margin: 0.25rem 0 1rem 2rem;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid var(--line);
+}
+.home-intro h1 {
+  font-size: 2.4rem;
+  margin-bottom: 0.9rem;
+}
+.home-role {
+  font-size: 1.3rem;
+  line-height: 1.4;
   color: var(--ink);
+}
+.home-ask {
+  color: var(--ink);
+}
+.contact-line,
+.evidence,
+.cv-contact {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.15rem;
+  padding: 0;
+  list-style: none;
+}
+.contact-line {
+  margin: 1.25rem 0 0;
+}
+.contact-line a,
+.evidence a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+.page-content > section > h2,
+.work-group > h2 {
+  font-size: 1.45rem;
+  margin: 2.75rem 0 0.25rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--line);
+}
+.heading-note {
+  margin-left: 0.5rem;
+  font: 400 0.8rem/1 var(--mono);
+  color: var(--muted);
+  letter-spacing: 0.02em;
+}
+.now {
+  margin-top: 2.25rem;
+  padding: 1rem 1.25rem 0.6rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--link);
+}
+.page-content > .now > h2 {
+  font-size: 1.05rem;
+  margin: 0 0 0.5rem;
+  padding: 0;
+  border: 0;
+}
+.now ul {
+  margin: 0;
+  padding-left: 1.2rem;
+}
+.now li {
+  margin-bottom: 0.45rem;
+}
+.ledger {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.ledger-row {
+  display: grid;
+  grid-template-columns: 8.75rem minmax(0, 1fr);
+  gap: 1.5rem;
+  padding-block: 1.1rem;
+  border-bottom: 1px solid var(--line);
+}
+.ledger-row:last-child {
+  border-bottom: 0;
+}
+.ledger-date {
+  margin: 0;
+  padding-top: 0.2rem;
+  font: 400 0.8rem/1.6 var(--mono);
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+.ledger-body > :last-child {
+  margin-bottom: 0;
+}
+.ledger-body p {
+  margin-bottom: 0.6rem;
+}
+.work-title {
+  font-size: 1.2rem;
+  margin: 0 0 0.3rem;
+}
+.work-title a,
+.timeline-title a {
+  color: var(--ink);
+}
+.work-title a {
   text-decoration: none;
 }
-.recent-post h3 a:hover {
-  color: var(--link);
+.work-title a:hover {
   text-decoration: underline;
 }
-.post-date {
-  color: var(--muted);
-  font-size: 0.85rem;
-  margin-bottom: 0.5rem;
+.work-title a:hover,
+.timeline-title a:hover {
+  color: var(--link);
 }
-.recent-post + .recent-post {
-  margin-top: 1.5rem;
+.work-item {
+  scroll-margin-top: 1rem;
+}
+.work-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.3rem 1rem;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+.status {
+  display: inline-block;
+  padding: 0.28rem 0.45rem 0.24rem;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  font: 500 0.68rem/1 var(--mono);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+.status-released {
+  color: var(--released);
+}
+.status-interim {
+  color: var(--interim);
+}
+.status-presented {
+  color: var(--presented);
+}
+.status-archived {
+  color: var(--muted);
+}
+.evidence {
+  margin: 0.75rem 0 0;
+  font-size: 0.925rem;
+}
+.evidence svg {
+  color: var(--muted);
+}
+.work-note {
+  font-size: 0.975rem;
+}
+.work-figure {
+  margin: 1.1rem 0 1rem;
+}
+.work-figure img,
+.work-figure video {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+  background: var(--surface);
+}
+.film-description {
+  margin-top: 0.35rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.film-description summary {
+  cursor: pointer;
+  color: var(--link);
+}
+.film-description p {
+  margin: 0.4rem 0 0;
+}
+.work-figure figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.timeline-title {
+  font-weight: 600;
+}
+.ledger-body .timeline-title {
+  margin-bottom: 0.2rem;
+}
+.section-more {
+  margin: 0.9rem 0 0;
+}
+.section-more a::after {
+  content: ' →';
+}
+.method-quote {
+  margin: 1.1rem 0 1.4rem;
+  padding-left: 1rem;
+  border-left: 3px solid var(--line);
+}
+.method-quote p {
+  margin: 0;
+  font-size: 1.15rem;
+}
+.method-quote cite {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.85rem;
+  font-style: normal;
+}
+.principles {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.25rem 2.25rem;
+  margin: 0;
+}
+.principles dt {
+  font-weight: 600;
+  margin-bottom: 0.25rem;
+}
+.principles dd {
+  margin: 0;
+}
+.outside-work {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+  margin-top: 1.1rem;
+}
+.art-figure {
+  margin: 0;
+}
+.art-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--line);
+}
+.art-figure figcaption {
+  margin-top: 0.45rem;
+  font-size: 0.85rem;
+  color: var(--muted);
+}
+.page-lede {
+  font-size: 1.1rem;
+  max-width: 46rem;
+}
+.group-note {
+  margin: 0.6rem 0 0.25rem;
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.page-toc .toc-secondary {
+  padding-left: 1.3rem;
+  font-size: 0.8rem;
+}
+.cv-heading h1 {
+  margin-bottom: 0.6rem;
+}
+.cv-contact {
+  margin: 0;
+  color: var(--muted);
+}
+.cv-headline {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+  color: var(--ink);
+}
+.cv-tools {
+  margin: 1rem 0 0;
+}
+.cv-verify code {
+  font: 0.85em var(--mono);
+}
+.cv-honors span + span::before,
+.cv-evidence::before {
+  content: ' ';
+}
+.cv-skills {
+  margin: 1rem 0 0;
+}
+.cv-skills div {
+  display: grid;
+  grid-template-columns: 8.75rem minmax(0, 1fr);
+  gap: 1.5rem;
+  padding-block: 0.55rem;
+}
+.cv-skills dt {
+  font-weight: 600;
+}
+.cv-skills dd {
+  margin: 0;
+}
+.cv-page section > p {
+  margin-top: 1rem;
 }
 .writing-page,
 .search-page,
@@ -780,6 +1080,29 @@ summary {
     grid-template-columns: minmax(0, 1fr) auto;
     gap: 0.6rem 1rem;
   }
+  .home-intro h1 {
+    font-size: 2.1rem;
+  }
+  .home-portrait {
+    width: 96px;
+    height: 96px;
+    margin: 0 0 0.75rem 1rem;
+  }
+  .home-role {
+    font-size: 1.15rem;
+  }
+  .ledger-row,
+  .cv-skills div {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 0.25rem;
+  }
+  .principles,
+  .outside-work {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .site-footer {
+    flex-wrap: wrap;
+  }
   .writing-row time {
     grid-column: 1;
     grid-row: 1;
@@ -840,8 +1163,109 @@ summary {
   .copy-code,
   .article-end,
   .citation-controls,
-  .writing-tools {
+  .writing-tools,
+  .cv-tools {
     display: none !important;
+  }
+  /* The CV prints, and renders to /cv.pdf, as a one-page résumé. Its page margin is
+     zero so browsers add no header or footer; the padding is the margin. */
+  @page cv {
+    size: letter;
+    margin: 0;
+  }
+  .cv-page {
+    page: cv;
+    font-size: 9.5pt;
+    line-height: 1.32;
+    color: #111;
+  }
+  .cv-page .page-content {
+    padding: 0.42in 0.6in 0.35in;
+  }
+  .cv-page a {
+    color: inherit;
+    text-decoration: none;
+  }
+  .cv-page .page-heading {
+    margin-bottom: 0.1in;
+  }
+  .cv-page h1 {
+    margin: 0 0 0.04in;
+    font-size: 21pt;
+    letter-spacing: -0.01em;
+  }
+  .cv-page .cv-headline {
+    margin: 0 0 0.05in;
+    font-size: 11pt;
+    color: #333;
+  }
+  .cv-page .cv-contact {
+    display: block;
+    font-size: 9pt;
+    color: #333;
+  }
+  .cv-page .cv-contact > * + *::before {
+    content: '·';
+    margin: 0 0.5em;
+    color: #888;
+  }
+  .cv-page .page-content > section > h2 {
+    margin: 0.13in 0 0.05in;
+    padding-bottom: 0.02in;
+    border-bottom: 0.75pt solid #999;
+    font-size: 9.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  /* Dates sit right of each entry's first line; later lines use the full width.
+     A grid, not positioning, keeps the PDF text in reading order for parsers. */
+  .cv-page .ledger-row {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0 0.2in;
+    padding: 0 0 0.06in;
+    border: 0;
+    break-inside: avoid;
+  }
+  .cv-page .ledger-body {
+    display: contents;
+  }
+  .cv-page .ledger-body > * {
+    grid-column: 1 / -1;
+    margin: 0;
+  }
+  .cv-page .ledger-body > :first-child {
+    grid-column: 1;
+    grid-row: 1;
+  }
+  .cv-page .ledger-date {
+    grid-column: 2;
+    grid-row: 1;
+    padding: 0;
+    font: inherit;
+    font-variant-numeric: tabular-nums;
+    color: #444;
+  }
+  /* Each citation already ends with its year. */
+  .cv-page .cv-posters .ledger-date {
+    display: none;
+  }
+  .cv-page .cv-posters .ledger-body > :first-child {
+    grid-column: 1 / -1;
+  }
+  .cv-page .cv-skills {
+    margin: 0;
+  }
+  .cv-page .cv-skills div {
+    grid-template-columns: 1.05in minmax(0, 1fr);
+    gap: 0.1in;
+    padding: 0 0 0.03in;
+  }
+  /* Coursework stays on the web page; the printed CV keeps to one page. */
+  .cv-page .cv-coursework {
+    display: none;
+  }
+  .status {
+    border-color: #777;
   }
   .wrap {
     width: 100%;

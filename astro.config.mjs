@@ -5,11 +5,12 @@ import remarkMath from 'remark-math';
 import rehypeKatex from 'rehype-katex';
 import rehypeCitation from 'rehype-citation';
 import { unified } from '@astrojs/markdown-remark';
+import cvPdf from './integrations/cv-pdf.mjs';
 
 export default defineConfig({
   site: 'https://starryark.github.io',
   trailingSlash: 'always',
-  integrations: [mdx(), sitemap({ filter: (page) => !page.includes('/search/') })],
+  integrations: [mdx(), sitemap({ filter: (page) => !page.includes('/search/') }), cvPdf()],
   markdown: {
     processor: unified({
       remarkPlugins: [remarkMath],

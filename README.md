@@ -2,7 +2,7 @@
 
 Yangyi Liu's personal website, built with Astro. A text-first layout based on [Forrest Sheldon's site](https://forrestsheldon.github.io/): Source Sans Pro, a white background, dated ledgers of work with public evidence, a printable CV, and a research-ready writing layout.
 
-**Live:** https://starryark.github.io
+**Live:** https://liuyangyi.com
 
 ## Run locally
 
@@ -43,18 +43,19 @@ Keep analysis environments, model weights, and large datasets in their own repos
 
 ## Customize the template
 
-| Change                                                   | File                         |
-| -------------------------------------------------------- | ---------------------------- |
-| Name, description, email, social links                   | `src/site.ts`                |
-| Work, experience, education, posters, skills             | `src/profile.ts`             |
-| Domain and legacy redirects                              | `astro.config.mjs`           |
-| Robots sitemap URL                                       | `public/robots.txt`          |
-| Colors, typography, spacing, responsive and print styles | `src/styles/global.css`      |
-| Header, footer, shared metadata                          | `src/layouts/Base.astro`     |
-| Homepage                                                 | `src/pages/index.astro`      |
-| Biography                                                | `src/content/pages/about.md` |
-| About layout and section navigation                      | `src/pages/about.astro`      |
-| Content metadata schema                                  | `src/content.config.ts`      |
+| Change                                                   | File                              |
+| -------------------------------------------------------- | --------------------------------- |
+| Name, description, email, social links                   | `src/site.ts`                     |
+| Work, experience, education, posters, skills             | `src/profile.ts`                  |
+| Domain                                                   | `astro.config.mjs`, `src/site.ts` |
+| Legacy redirects                                         | `astro.config.mjs`                |
+| Robots sitemap URL                                       | `public/robots.txt`               |
+| Colors, typography, spacing, responsive and print styles | `src/styles/global.css`           |
+| Header, footer, shared metadata                          | `src/layouts/Base.astro`          |
+| Homepage                                                 | `src/pages/index.astro`           |
+| Biography                                                | `src/content/pages/about.md`      |
+| About layout and section navigation                      | `src/pages/about.astro`           |
+| Content metadata schema                                  | `src/content.config.ts`           |
 
 When reusing the code, replace the personal writing, profile artwork, author defaults, and homepage biography as well as site settings. The MIT license covers code, not personal content or third-party marks.
 
@@ -71,6 +72,8 @@ npm run test:research
 Browser tests cover desktop/mobile layouts, WCAG A/AA axe checks, navigation, full-text search, dark mode, article tools, print styles, legacy redirects, local links, metadata, and draft exclusion. The research check builds a temporary article to exercise math, MDX figures, citations, author metadata, and draft filtering, then removes it and rebuilds production. No sample research is published as the author's work.
 
 GitHub Pages uses **GitHub Actions** as its publishing source. The workflow checks types, research rendering, and browser behavior before uploading and deploying `dist/` on pushes to `main`. Pull requests run checks without deploying.
+
+The custom domain `liuyangyi.com` is set in the repository's Settings → Pages; the workflow ignores a `CNAME` file. Cloudflare is the registrar and DNS host only, with records set to DNS only: four `A` and four `AAAA` records for the apex point to GitHub Pages, and `www` is a `CNAME` to `starryark.github.io`. GitHub redirects `www.liuyangyi.com` and `starryark.github.io` to the apex. Do not build the site on Cloudflare Pages: its build image has no Chromium, which `cv.pdf` needs.
 
 The original Chirpy history is preserved, with the old site marked by an archive tag. `public/sw.js` is a retirement worker for old cached installations, not a new offline app.
 

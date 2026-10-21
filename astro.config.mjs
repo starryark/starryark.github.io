@@ -8,7 +8,7 @@ import { unified } from '@astrojs/markdown-remark';
 import cvPdf from './integrations/cv-pdf.mjs';
 
 export default defineConfig({
-  site: 'https://starryark.github.io',
+  site: 'https://liuyangyi.com',
   trailingSlash: 'always',
   integrations: [mdx(), sitemap({ filter: (page) => !page.includes('/search/') }), cvPdf()],
   markdown: {

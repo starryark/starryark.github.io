@@ -194,7 +194,7 @@ test('legacy addresses, metadata, feed, and draft exclusion are preserved', asyn
   await page.goto(article);
   await expect(page.locator('link[rel=canonical]')).toHaveAttribute(
     'href',
-    'https://starryark.github.io' + article,
+    'https://liuyangyi.com' + article,
   );
   const data = JSON.parse(await page.locator('script[type="application/ld+json"]').innerText());
   expect(data['@type']).toBe('BlogPosting');

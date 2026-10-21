@@ -3,7 +3,7 @@ export const site = {
   title: 'Yangyi Liu',
   description:
     'Yangyi Liu (starryark) founded AmadeusBio.ai, which builds AI agents that accelerate biological research. Molecular and cell biology graduate of UC San Diego, based in San Diego.',
-  url: 'https://starryark.github.io',
+  url: 'https://liuyangyi.com',
   email: 'lyangyilliu@gmail.com',
   location: 'San Diego, California',
   tagline: 'Founder of AmadeusBio.ai, which builds AI agents that accelerate biological research.',

@@ -185,8 +185,7 @@ p {
 .header-github {
   margin-right: 0.5rem;
 }
-.header-github,
-.social-links a {
+.header-github {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
@@ -331,17 +330,67 @@ p {
   border: 0;
   margin: 0;
 }
-.social-links,
-.prose .social-links {
+/* Contact links: the email address in full, then brand icons on equal hit targets. */
+.contact-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.4rem 1.1rem;
+  align-items: center;
+  gap: 0.15rem;
   padding: 0;
-  margin: 1rem 0;
+  margin: 1.25rem 0;
   list-style: none;
 }
-.social-links li {
+.contact-links li {
   margin: 0;
+}
+.contact-links .contact-email {
+  margin-right: 0.85rem;
+}
+.contact-email a {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+.brand-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 6px;
+  color: var(--muted);
+}
+.brand-link:hover {
+  color: var(--link);
+  background: var(--surface);
+}
+/* The QR card is a white image in both themes, so the dialog stays white. */
+.wechat-dialog {
+  width: min(320px, calc(100vw - 2rem), calc((100svh - 2rem) * 888 / 1191));
+  padding: 0;
+  border: 0;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 12px 40px rgb(0 0 0 / 0.35);
+}
+.wechat-dialog::backdrop {
+  background: rgb(0 0 0 / 0.65);
+}
+.wechat-dialog img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: inherit;
+}
+.wechat-dialog form {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  margin: 0;
+}
+.wechat-close,
+.wechat-close:hover {
+  color: #343a40;
 }
 /* Homepage, Work, and CV: dated ledgers with evidence. */
 .home-intro::after {
@@ -358,6 +407,9 @@ p {
   border-radius: 6px;
   border: 1px solid var(--line);
 }
+[data-theme='dark'] .home-portrait {
+  border-color: transparent;
+}
 .home-intro h1 {
   font-size: 2.4rem;
   margin-bottom: 0.9rem;
@@ -370,7 +422,6 @@ p {
 .home-ask {
   color: var(--ink);
 }
-.contact-line,
 .evidence,
 .cv-contact {
   display: flex;
@@ -379,10 +430,6 @@ p {
   padding: 0;
   list-style: none;
 }
-.contact-line {
-  margin: 1.25rem 0 0;
-}
-.contact-line a,
 .evidence a {
   display: inline-flex;
   align-items: center;
@@ -1056,6 +1103,14 @@ summary {
   .header-github {
     font-size: 0.9rem;
     margin-right: 0.25rem;
+  }
+  /* Email on its own line; the icon row's first glyph lines up with the text edge. */
+  .contact-links .contact-email {
+    flex-basis: 100%;
+    margin: 0 0 0.2rem;
+  }
+  .contact-email + li {
+    margin-left: calc((20px - 2rem) / 2);
   }
   .page-grid,
   .article-shell,

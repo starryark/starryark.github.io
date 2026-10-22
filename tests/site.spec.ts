@@ -48,9 +48,12 @@ test('profile facts agree across pages and metadata, and private data stays out'
   expect(profile.mainEntity.worksFor.name).toBe('AmadeusBio.ai');
   expect(profile.mainEntity.sameAs).toContain('https://github.com/starryark');
   const contact = page.getByRole('list', { name: 'Contact and profiles' });
-  await expect(contact.getByRole('link', { name: 'GitHub' })).toBeVisible();
-  await expect(contact.getByRole('link', { name: 'Hugging Face' })).toHaveCount(0);
+  for (const name of ['GitHub', 'Hugging Face', 'LinkedIn', 'X', 'Pixiv', 'WeChat']) {
+    await expect(contact.getByRole('link', { name, exact: true })).toBeVisible();
+  }
   await expect(contact.getByRole('link', { name: 'Steam' })).toHaveCount(0);
+  const wechatQr = await contact.getByRole('link', { name: 'WeChat' }).getAttribute('href');
+  expect((await request.get(wechatQr!)).ok()).toBe(true);
   // The film loads nothing until played, and falls back to the GitHub release.
   const film = page.locator('.work-figure video');
   await expect(film).toHaveAttribute('preload', 'none');
@@ -72,7 +75,6 @@ test('profile facts agree across pages and metadata, and private data stays out'
   await expect(page.locator('#molecular-animation')).toContainText('Limits.');
   await page.goto('/cv/');
   await expect(page.locator('main')).toContainText('BIBC 102');
-  await expect(page.locator('main')).toContainText('AmadeusBio, PBC');
   await expect(page.locator('body')).not.toContainText('AmadeusBio, Inc.');
   // The button opens the browser's print dialog, whose preview offers Save as PDF.
   await page.evaluate(() => {
@@ -93,6 +95,7 @@ test('profile facts agree across pages and metadata, and private data stays out'
   );
   const llms = await (await request.get('/llms.txt')).text();
   expect(llms).toContain('### Molecular Animation');
+  expect(llms).toContain('AmadeusBio, PBC');
   expect(llms).toContain('CeDiD 26TK-4GJI-YCUT');
   // No phone numbers or UC San Diego student IDs anywhere in the published pages.
   for (const path of ['/', '/work/', '/cv/', '/about/', '/llms.txt', '/search.json']) {

@@ -18,7 +18,7 @@ try {
     document.querySelector('.site-header')?.remove();
     document.querySelector('.site-footer')?.remove();
     document
-      .querySelectorAll('main section, .page-toc, .contact-line')
+      .querySelectorAll('main section, .page-toc, .contact-links')
       .forEach((element) => element.remove());
     document.querySelector('.home-intro a[href="/cv/"]')?.remove();
     const address = document.createElement('p');

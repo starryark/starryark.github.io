@@ -17,11 +17,11 @@ Instead, I wish to explore something truly innovative that adds value in perhaps
 
 ## Art
 
-I like art, especially the more illustrative side of anime. I sometimes have the self-image that I draw pretty well, and other times the complete opposite. I recently played *Steins;Gate*, and playing the game gives me flashbacks every little cues mentioned in the game. 
+I like art, especially the illustrative side of anime. I recently played *Steins;Gate*, and playing the game gives me flashbacks every little cues mentioned in the game. 
 
-The phenomenology class I took about Heidegger, seminars, labs, and many other details all echoed back to the play that was written prior to 2010. I sometimes jokingly call visual novels (Galgames) the Shakespearean play in modernity, which is kinda true when you think about it. 
+The phenomenology class I took about Heidegger, seminars, labs, and many other details all echoed back to the play that was written prior to 2010. I sometimes jokingly call visual novels (Galgames) the Shakespearean play in modernity.
 
-Perhaps that's how Athenians felt about Sophocles.
+Just as ML datasets are growing in modalites, I believe the future of artistic creavitivity is moving from 2D static visual into multi-modal 3D media. I am currently exploring with 3D art assets such as [Tripo AI](https://studio.tripo3d.ai) and character voice [finetuning](https://huggingface.co/spaces/starrydark/Kurisu_Qwen3_TTS).
 
 ---
 
@@ -46,8 +46,6 @@ I also like feeding crows on campus. Looking at them (also feeding) helps me shi
 ---
 
 ## What I am up to
-
-After graduation, I founded AmadeusBio.ai, where I build agentic AI systems for biological research.
 
 I had a lot of fun learning and playing around with coding, and two free resources I found especially useful are: [MIT Missing Semester](https://missing.csail.mit.edu/) and [Anthropic Academy](https://anthropic.skilljar.com/).
 

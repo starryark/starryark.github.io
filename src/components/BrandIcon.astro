@@ -3,18 +3,22 @@ import {
   faGithub,
   faHuggingFace,
   faLinkedin,
+  faXTwitter,
   faPixiv,
   faDiscord,
   faSteam,
+  faWeixin,
 } from '@fortawesome/free-brands-svg-icons';
 
 const icons = {
   GitHub: faGithub,
   'Hugging Face': faHuggingFace,
   LinkedIn: faLinkedin,
+  X: faXTwitter,
   Pixiv: faPixiv,
   Discord: faDiscord,
   Steam: faSteam,
+  WeChat: faWeixin,
 };
 interface Props {
   name: keyof typeof icons;
@@ -27,7 +31,7 @@ const paths = Array.isArray(path) ? path : [path];
 
 <!-- Brand icons: Font Awesome Free by Fonticons, Inc. https://fontawesome.com/license/free (CC BY 4.0). -->
 <svg
-  width={size}
+  width={(size * width) / height}
   height={size}
   viewBox={`0 0 ${width} ${height}`}
   fill="currentColor"

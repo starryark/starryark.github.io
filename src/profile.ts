@@ -57,14 +57,14 @@ export const profile = {
   name: 'Yangyi Liu',
   preferredName: 'Frank',
   handle: 'starryark',
-  role: 'Founder, AmadeusBio.ai',
+  role: 'Bio & ML',
   location: 'San Diego, California',
-  updated: '2026-10-20',
+  updated: '2026-10-22',
   company: {
     name: 'AmadeusBio.ai',
     legalName: 'AmadeusBio, PBC',
     url: 'https://www.amadeusbio.ai',
-    description: 'AI agents that accelerate biological research',
+    description: 'building AI agents that accelerate scientific research',
   },
   education: {
     degree: 'B.S. Molecular and Cell Biology',
@@ -76,8 +76,7 @@ export const profile = {
     honors: [
       { name: 'Vi and Quang Pham ’06 Alumni Scholarship' },
       {
-        name: 'Eleanor Roosevelt College Honors Project',
-        detail: 'on strigolactone synthetic biology in the Li Lab, Fall 2024',
+        name: 'Eleanor Roosevelt College Honor',
       },
       { name: 'Cum laude' },
       { name: 'Provost Honors', detail: 'in six quarters' },
@@ -101,16 +100,17 @@ export const work: Work[] = [
     title: 'Molecular Animation',
     context: 'AmadeusBio.ai · open source, Apache-2.0',
     when: 'Oct 2026',
-    dates: 'v0.1.0 Oct 7 · v0.2.0 Oct 18, 2026',
-    status: { label: 'Released v0.2.0', tone: 'released' },
+    dates: 'v0.1.0 Oct 7 · v0.2.0 Oct 18 · v0.3.0 Oct 21, 2026',
+    status: { label: 'Released v0.3.0', tone: 'released' },
     summary:
-      'An open framework that turns a scientific brief into a molecular film with Blender. Every film comes with a production record that states, beat by beat, what is experimental and what is illustrative. The channelrhodopsin film took about two hours from idea to final render.',
+      'An open framework that turns a scientific brief into a molecular film with Blender. Every film comes with a production record that states, beat by beat, what is experimental and what is illustrative. The first channelrhodopsin film took about two hours from idea to final render.',
     details: [
       'Scenes are built from PDB structures by a tested, pure-NumPy science layer: mmCIF assemblies, atom-matched states, constrained morphs that keep bond lengths and angles, pathway profiles, and procedural membranes.',
       'Since v0.2.0, molecules move by physics on one clock per film: Stokes–Einstein diffusion, elastic-network normal modes, side-chain turns, and worm-like-chain DNA.',
-      'Builds are idempotent and report their numerical checks. After a refactor, the case study’s freshly rendered posters matched the delivered ones within 1/255.',
-      'Case study: channelrhodopsin, the light-gated channel behind the 2026 Nobel Prize in Physiology or Medicine, from PDB 9GO1 and 9GO2. In 21 seconds, a photon twists retinal from all-trans to 13-cis, Lys132 swings toward Glu129 (9.0 → 2.66 Å), and the cation pathway opens. Each beat is tagged experimental, illustrative, or symbolic.',
-      'That film took about two hours from idea to final render. By hand, curating assets, animating, adjusting, and iterating on a film like it usually takes days.',
+      'Since v0.3.0, molecules are drawn for what their parts are: protein cartoons from the deposited secondary structure, nucleic acids atom by atom, Coulombic potential on van der Waals envelopes, and π-electron lobes. A film’s captions, evidence tags, and pointer positions export as data, so a web page can draw them over the clean film.',
+      'Builds are idempotent and report their numerical checks. Version 4 of the case study, rebuilt from its scene, renders a frame that matches the delivered poster within 1/255.',
+      'Case study: channelrhodopsin, the light-gated channel behind the 2026 Nobel Prize in Physiology or Medicine, from PDB 9GO1 and 9GO2. In 21 seconds, a photon twists retinal from all-trans to 13-cis, Lys132 swings toward Glu129 (9.0 → 2.66 Å), and the cation pathway opens. Each beat is tagged experimental, illustrative, or symbolic. Version 4, in v0.3.0, keeps the science and motion of version 3 and redraws it as cartoons on white.',
+      'The first version took about two hours from idea to final render. By hand, curating assets, animating, adjusting, and iterating on a film like it usually takes days.',
       'Second case study: the ART locus of Staphylococcus phage SA1, a recently reported system of array-associated reverse transcriptases, from GenBank MW218148.1 and AlphaFold 3 predictions. No complex of its RNA, reverse transcriptase, and partner protein was predicted with confidence, so the 31-second film keeps them apart and marks how they work together as unknown.',
     ],
     role: 'I lead the project at AmadeusBio.ai. It is built with AI agents and designed so that an agent (Claude Code through Blender MCP) can drive it, though it also works by hand.',
@@ -119,8 +119,8 @@ export const work: Work[] = [
     evidence: [
       { label: 'Source on GitHub', href: 'https://github.com/AmadeusBio-ai/Molecular_Animation' },
       {
-        label: 'v0.2.0 release notes',
-        href: 'https://github.com/AmadeusBio-ai/Molecular_Animation/releases/tag/v0.2.0',
+        label: 'v0.3.0 release notes',
+        href: 'https://github.com/AmadeusBio-ai/Molecular_Animation/releases/tag/v0.3.0',
       },
       {
         label: 'Channelrhodopsin case study',
@@ -132,32 +132,34 @@ export const work: Work[] = [
       },
     ],
     figure: {
-      src: '/figures/channelrhodopsin-960.webp',
-      srcset: '/figures/channelrhodopsin-960.webp 960w, /figures/channelrhodopsin-1920.webp 1920w',
+      src: '/figures/channelrhodopsin-v4-960.webp',
+      srcset:
+        '/figures/channelrhodopsin-v4-960.webp 960w, /figures/channelrhodopsin-v4-1920.webp 1920w',
       width: 960,
       height: 540,
-      alt: 'A rendered frame of the channelrhodopsin protein, drawn as blue atomic spheres, standing in a pale lipid membrane with sodium ions above it.',
+      alt: 'A rendered frame of channelrhodopsin on a white background: the protein, drawn as a dark-blue ribbon cartoon, spans a pale-blue lipid membrane, with retinal in orange inside it and sodium ions as blue spheres above and below.',
       caption:
-        'The channelrhodopsin film: the light-gated channel behind the 2026 Nobel Prize in Physiology or Medicine, built from PDB 9GO1 and 9GO2, with each beat labelled on screen. It was released two days after the prize was announced. The membrane is procedural, not simulated.',
-      // The company site's file names carry content hashes; the GitHub release copy is the stable fallback.
+        'Channelrhodopsin, version 4: the light-gated channel behind the 2026 Nobel Prize in Physiology or Medicine, built from PDB 9GO1 and 9GO2 and drawn as cartoons for a white page. The first version was released two days after the prize was announced. This copy plays without captions; the company page draws them over the film, with each beat’s evidence tag. The membrane is procedural, not simulated.',
+      // The company site's file names carry content hashes and its films are clean, with captions
+      // drawn by the page; the GitHub release copy, with labels burned in, is the stable fallback.
       video: {
-        poster: '/figures/channelrhodopsin-1920.webp',
+        poster: '/figures/channelrhodopsin-v4-1920.webp',
         sources: [
           {
-            src: 'https://www.amadeusbio.ai/media/film-labelled-720.61a62ae5.webm',
+            src: 'https://www.amadeusbio.ai/media/film-clean-720.b35c6dd4.webm',
             type: 'video/webm',
           },
           {
-            src: 'https://www.amadeusbio.ai/media/film-labelled-720.888ac4a6.mp4',
+            src: 'https://www.amadeusbio.ai/media/film-clean-720.5b12e1b8.mp4',
             type: 'video/mp4',
           },
           {
-            src: 'https://github.com/AmadeusBio-ai/Molecular_Animation/releases/download/v0.2.0/channelrhodopsin.mp4',
+            src: 'https://github.com/AmadeusBio-ai/Molecular_Animation/releases/download/v0.3.0/channelrhodopsin-v4.mp4',
             type: 'video/mp4',
           },
         ],
         description:
-          'A 21-second silent film of channelrhodopsin C1C2, built from PDB structures 9GO1 and 9GO2. It opens on the protein dimer in a lipid membrane as photons arrive, dives into the retinal pocket, and shows retinal twisting from all-trans to 13-cis, an illustrative morph between the two crystal states. Lys132 then swings toward Glu129 to form a salt bridge. A section through the cation pathway first shows it interrupted, as in the crystal, then open in an illustrative conducting-state model as sodium ions cross the membrane. Labels on screen mark each beat as experimental, illustrative, or symbolic.',
+          'A 21-second silent film of channelrhodopsin C1C2, built from PDB structures 9GO1 and 9GO2 and drawn on white: the protein as ribbon cartoons, the acting residues in ball-and-stick, and retinal with its π-electron lobes. It opens on the protein dimer in a lipid membrane as photons arrive, dives into the retinal pocket, and shows retinal twisting from all-trans to 13-cis, an illustrative morph between the two crystal states, as the lobes separate across the twisting C13=C14 bond. Lys132 then swings toward Glu129 to form a salt bridge. A section through the cation pathway first shows it interrupted, as in the crystal, then open in an illustrative conducting-state model as sodium ions cross the membrane. Throughout, lipids, side chains, and the protein move with illustrative thermal motion.',
       },
     },
     featured: true,
@@ -251,9 +253,9 @@ export const experience: Experience[] = [
   {
     dates: '2026–present',
     title: 'Founder',
-    org: 'AmadeusBio.ai (AmadeusBio, PBC)',
+    org: 'AmadeusBio.ai',
     href: 'https://www.amadeusbio.ai',
-    text: 'Sole founder, building LLM-powered tools for biological research: Model Context Protocol (MCP) servers for PyMOL and napari, Claude Code plugins, and Molecular Animation, an open-source framework with automated tests and CI.',
+    text: 'building LLM-powered tools for biological research: Model Context Protocol (MCP) servers for PyMOL and napari, Claude Code plugins, and Molecular Animation, an open-source framework with automated tests and CI.',
   },
   {
     dates: 'Jan–Dec 2025',
@@ -323,9 +325,9 @@ export const skills = [
   {
     area: 'Wet lab',
     items:
-      'Cloning, PCR and qPCR, mammalian cell culture, yeast and E. coli strain engineering, flow cytometry, protein expression and purification, Western blot, ELISA, LC-MS, fluorescence microscopy, Benchling',
+      'Cloning, PCR and qPCR, mammalian cell culture, yeast and E. coli strain engineering, flow cytometry, protein expression and purification, Western blot, ELISA, LC-MS, fluorescence microscopy',
   },
-  { area: 'Languages', items: 'English, Mandarin (fluent), Japanese (intermediate)' },
+  { area: 'Languages', items: 'English, Mandarin, Japanese' },
 ];
 
 export const coursework = [

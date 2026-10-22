@@ -1,0 +1,62 @@
+---
+import BrandIcon from './BrandIcon.astro';
+import Icon from './Icon.astro';
+import { site } from '../site';
+interface Props {
+  label: string;
+  links: readonly (typeof site.links)[number][];
+}
+const { label, links } = Astro.props;
+---
+
+<ul class="contact-links" aria-label={label}>
+  <li class="contact-email">
+    <a href={`mailto:${site.email}`}><Icon name="email" size={18} />{site.email}</a>
+  </li>
+  {
+    links.map(({ label, href }) => (
+      <li>
+        <a class="brand-link" href={href} rel="me" aria-label={label} title={label}>
+          <BrandIcon name={label} size={20} />
+        </a>
+      </li>
+    ))
+  }
+  <li>
+    <a
+      class="brand-link"
+      href={site.wechatQr}
+      aria-label="WeChat"
+      aria-haspopup="dialog"
+      title="WeChat"
+      data-wechat-open><BrandIcon name="WeChat" size={20} /></a
+    >
+  </li>
+</ul>
+<dialog class="wechat-dialog" aria-label="WeChat QR code" data-wechat-dialog>
+  <img
+    src={site.wechatQr}
+    width="888"
+    height="1191"
+    alt="WeChat QR code. Scan it in WeChat to add me as a friend."
+    loading="lazy"
+    decoding="async"
+  />
+  <form method="dialog">
+    <button class="icon-button wechat-close" aria-label="Close"><Icon name="close" /></button>
+  </form>
+</dialog>
+
+<script>
+  // Without JavaScript the WeChat link opens the QR image itself.
+  const dialog = document.querySelector<HTMLDialogElement>('[data-wechat-dialog]');
+  document.querySelector('[data-wechat-open]')?.addEventListener('click', (event) => {
+    if (!dialog) return;
+    event.preventDefault();
+    dialog.showModal();
+  });
+  // A click on the backdrop targets the dialog itself; the image fills the dialog's box.
+  dialog?.addEventListener('click', (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+</script>

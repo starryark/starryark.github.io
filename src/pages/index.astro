@@ -1,7 +1,6 @@
 ---
 import Base from '../layouts/Base.astro';
-import BrandIcon from '../components/BrandIcon.astro';
-import Icon from '../components/Icon.astro';
+import ContactLinks from '../components/ContactLinks.astro';
 import WorkItem from '../components/WorkItem.astro';
 import { profilePage } from '../lib/schema';
 import { site } from '../site';
@@ -44,30 +43,14 @@ const principles =
         />
         <h1>{site.name}</h1>
         <p class="home-role">
-          I founded <a href={profile.company.url}>{profile.company.name}</a>, where I build AI
-          agents that accelerate biological research.
+          Hi! I am interested in where ML intersects Biology
         </p>
         <p>
-          I trained as a molecular and cell biologist at UC San Diego (B.S. 2025, cum laude) and
-          spent two years at the bench, in yeast synthetic biology and C. elegans neurogenetics,
-          before building AI agents for research. <a href="/cv/">CV</a>
+          I graduated molecular and cell biology at UC San Diego in ~2 years and
+           had various teaching, wet and dry lab experiences. Currently I am learning and exploring with the power of frontier models. <a href="/cv/">CV</a>
         </p>
-        <p class="home-ask">I’m open to {profile.openTo}. Email is the best way to reach me.</p>
-        <ul class="contact-line" aria-label="Contact and profiles">
-          <li>
-            <a href={`mailto:${site.email}`}><Icon name="email" size={16} />{site.email}</a>
-          </li>
-          {
-            links.map(({ label, href }) => (
-              <li>
-                <a href={href} rel="me">
-                  <BrandIcon name={label} />
-                  {label}
-                </a>
-              </li>
-            ))
-          }
-        </ul>
+        <p class="home-ask">I'd love to discuss anything, whether it's hobby, research, AI, etc. Send me a message! (Email is the best.) </p>
+        <ContactLinks label="Contact and profiles" links={links} />
       </header>
 
       {

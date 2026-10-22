@@ -1,8 +1,7 @@
 ---
 import { getEntry, render } from 'astro:content';
 import Base from '../layouts/Base.astro';
-import BrandIcon from '../components/BrandIcon.astro';
-import Icon from '../components/Icon.astro';
+import ContactLinks from '../components/ContactLinks.astro';
 import { profilePage } from '../lib/schema';
 import { site } from '../site';
 const page = await getEntry('pages', 'about');
@@ -21,19 +20,7 @@ const { Content, headings } = await render(page);
     <div class="page-content">
       <header class="page-heading"><h1>About</h1></header>
       <div class="prose about-prose"><Content /></div>
-      <ul class="social-links" aria-label="Contact and social profiles">
-        <li><a href={`mailto:${site.email}`}><Icon name="email" size={16} /> Email</a></li>
-        {
-          site.links.map(({ label, href }) => (
-            <li>
-              <a href={href} rel="me">
-                <BrandIcon name={label} />
-                {label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
+      <ContactLinks label="Contact and social profiles" links={site.links} />
     </div>
     <aside class="page-toc" aria-label="On this page">
       <p>On this page</p>
@@ -47,7 +34,7 @@ const { Content, headings } = await render(page);
       <img
         class="about-photo"
         src="/assets/img/painting-480.webp"
-        alt="A digital painting by Yangyi Liu: a girl with long brown hair sits hugging her knees in a sunlit corridor."
+        alt="A digital painting by Yangyi Liu: Makise Kurisu from Steins;Gate."
         width="144"
         height="144"
       />

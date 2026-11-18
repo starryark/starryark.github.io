@@ -59,7 +59,7 @@ export const profile = {
   handle: 'starryark',
   role: 'Bio & ML',
   location: 'San Diego, California',
-  updated: '2026-10-22',
+  updated: '2026-11-17',
   company: {
     name: 'AmadeusBio.ai',
     legalName: 'AmadeusBio, PBC',
@@ -89,11 +89,48 @@ export const profile = {
   // Shown on the homepage, above the contact line.
   openTo: 'opportunities in AI for biology, in research or engineering',
   // Dated news for the homepage. Empty until there is something new to report.
-  now: [] as { text: string; href: string }[],
+  now: [
+    {
+      text: 'Our Fusion Equilibrium Challenge entry placed 3rd of 57 in Challenge 1 and 4th of 41 in Challenge 2 (NeurIPS 2026 competition).',
+      href: 'https://fusion-equilibrium-challenge.sophelio.io/results/',
+    },
+  ] as { text: string; href: string }[],
 };
 
 // Newest first. /work/ groups the entries; the homepage shows the featured ones.
 export const work: Work[] = [
+  {
+    id: 'fusion-equilibrium-challenge',
+    group: 'AmadeusBio.ai',
+    title: 'Fusion Equilibrium Challenge',
+    context: 'AmadeusBio.ai · NeurIPS 2026 competition',
+    when: 'Oct–Nov 2026',
+    dates: 'Development phase to Oct 18 · Final entries Oct 24 · final results Nov 14, 2026',
+    status: { label: '3rd place, Challenge 1', tone: 'released' },
+    summary:
+      'Tokamak equilibrium reconstruction without magnetic sensors. 3rd of 57 on DIII-D and 4th of 41 on MAST transfer.',
+    details: [
+      'The task: the flux map and equilibrium scalars from coil currents and Thomson scattering alone, on DIII-D with training labels and zero-shot on MAST.',
+      'DIII-D: an ensemble of 22 residual multilayer perceptrons that predict principal components of the flux map, fine-tuned through a differentiable copy of the scorer’s internal-inductance term, with a corrected plasma-current time base. Development composite score 0.996782; the leading entry scored 0.996998.',
+      'Final standings, published 14 November 2026: third of 57 in Challenge 1 with DIII-D composite 0.996843 (flux-map R² 0.999932), and fourth of 41 in Challenge 2 with MAST composite 0.808111 and generalisation ratio 0.8107 — the first place beyond a podium whose three places the organisers shared under an anti-gaming rule. The organisers reproduced the entry from our public package, re-running the shipped models and retraining them from scratch, and it passed the rules-compliance review.',
+      'MAST, where the rules allow no equilibrium labels: the vacuum field of the coils, a circuit model of induced passive currents, and a plasma term from a network trained only on synthetic equilibria driven by real MAST inputs. Development composite 0.8028, far below the leading 0.9511.',
+      'Three entries went into the blind Final phase. The package behind them is public: run from the public code and weights alone, it reproduced two entries’ submitted files, DIII-D byte for byte and MAST to floating-point rounding.',
+    ],
+    role: 'I led the entry. AI agents in Claude Code did most of the coding, experiments, and analysis under my direction.',
+    limits:
+      'This page and the company’s technical report state only our own numbers; the organisers’ results page has the full standings. Development-phase numbers describe the public half of the test shots, the Final numbers the blind half.',
+    evidence: [
+      {
+        label: 'Technical report',
+        href: 'https://www.amadeusbio.ai/research/fusion-equilibrium-challenge',
+      },
+      { label: 'Final results', href: 'https://fusion-equilibrium-challenge.sophelio.io/results/' },
+      { label: 'Code and configs (MIT)', href: 'https://github.com/starryark/fec26-final-package' },
+      { label: 'Trained weights', href: 'https://huggingface.co/starrydark/fec-final-weights' },
+      { label: 'Challenge paper', href: 'https://arxiv.org/abs/2609.01750' },
+    ],
+    featured: true,
+  },
   {
     id: 'molecular-animation',
     group: 'AmadeusBio.ai',
@@ -103,7 +140,7 @@ export const work: Work[] = [
     dates: 'v0.1.0 Oct 7 · v0.2.0 Oct 18 · v0.3.0 Oct 21, 2026',
     status: { label: 'Released v0.3.0', tone: 'released' },
     summary:
-      'An open framework that turns a scientific brief into a molecular film with Blender. Every film comes with a production record that states, beat by beat, what is experimental and what is illustrative. The first channelrhodopsin film took about two hours from idea to final render.',
+      'An open framework that turns a scientific brief into a molecular film with Blender + Coding Harness.',
     details: [
       'Scenes are built from PDB structures by a tested, pure-NumPy science layer: mmCIF assemblies, atom-matched states, constrained morphs that keep bond lengths and angles, pathway profiles, and procedural membranes.',
       'Since v0.2.0, molecules move by physics on one clock per film: Stokes–Einstein diffusion, elastic-network normal modes, side-chain turns, and worm-like-chain DNA.',
@@ -139,7 +176,7 @@ export const work: Work[] = [
       height: 540,
       alt: 'A rendered frame of channelrhodopsin on a white background: the protein, drawn as a dark-blue ribbon cartoon, spans a pale-blue lipid membrane, with retinal in orange inside it and sodium ions as blue spheres above and below.',
       caption:
-        'Channelrhodopsin, version 4: the light-gated channel behind the 2026 Nobel Prize in Physiology or Medicine, built from PDB 9GO1 and 9GO2 and drawn as cartoons for a white page. The first version was released two days after the prize was announced. This copy plays without captions; the company page draws them over the film, with each beat’s evidence tag. The membrane is procedural, not simulated.',
+        'Channelrhodopsin (Nobel Prize in Medicine 2026) in action',
       // The company site's file names carry content hashes and its films are clean, with captions
       // drawn by the page; the GitHub release copy, with labels burned in, is the stable fallback.
       video: {

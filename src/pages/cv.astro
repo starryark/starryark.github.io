@@ -6,8 +6,14 @@ const { education } = profile;
 const github = site.links.find((link) => link.label === 'GitHub')!;
 const linkedin = site.links.find((link) => link.label === 'LinkedIn')!;
 // Wet-lab projects already appear under Experience and Posters; superseded tools stay on /work/.
+// The Fusion Equilibrium Challenge stays off the printed CV: the page is full at one page
+// (a test checks it), and CI's Linux text rendering has no room for another row; the entry
+// is on the homepage, /work/, and llms.txt.
 const projects = work.filter(
-  (item) => item.group !== 'Wet-lab research' && item.status.tone !== 'archived',
+  (item) =>
+    item.group !== 'Wet-lab research' &&
+    item.status.tone !== 'archived' &&
+    item.id !== 'fusion-equilibrium-challenge',
 );
 ---
 

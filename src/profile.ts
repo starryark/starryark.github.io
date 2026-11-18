@@ -108,7 +108,7 @@ export const work: Work[] = [
     dates: 'Development phase to Oct 18 · Final entries Oct 24 · final results Nov 14, 2026',
     status: { label: '3rd place, Challenge 1', tone: 'released' },
     summary:
-      '3rd of 57 teams on DIII-D and 4th of 41 on MAST transfer in the final standings.',
+      'Tokamak equilibrium reconstruction without magnetic sensors. 3rd of 57 teams on DIII-D (Challenge 1) and 4th of 41 on zero-shot MAST transfer (Challenge 2) in the final standings.',
     details: [
       'The task: the flux map and equilibrium scalars from coil currents and Thomson scattering alone, on DIII-D with training labels and zero-shot on MAST.',
       'DIII-D: an ensemble of 22 residual multilayer perceptrons that predict principal components of the flux map, fine-tuned through a differentiable copy of the scorer’s internal-inductance term, with a corrected plasma-current time base. Development composite score 0.996782; the leading entry scored 0.996998.',
